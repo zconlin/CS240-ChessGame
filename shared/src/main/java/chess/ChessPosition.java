@@ -34,10 +34,10 @@ public class ChessPosition {
         return col;
     }
 
-//    @Override
-//    public String toString() {
-//        return "(" + row + ", " + col + ")";
-//    }
+    @Override
+    public String toString() {
+        return "(" + row + ", " + col + ")";
+    }
 
     @Override
     public boolean equals(Object o) {
