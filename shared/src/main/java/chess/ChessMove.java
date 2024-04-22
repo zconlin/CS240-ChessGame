@@ -7,6 +7,9 @@ package chess;
  * signature of the existing methods.
  */
 public class ChessMove {
+    ChessPosition startPosition;
+    ChessPosition endPosition;
+    ChessPiece.PieceType promotionPiece;
 
     public ChessMove(ChessPosition startPosition, ChessPosition endPosition,
                      ChessPiece.PieceType promotionPiece) {
@@ -34,5 +37,14 @@ public class ChessMove {
      */
     public ChessPiece.PieceType getPromotionPiece() {
         throw new RuntimeException("Not implemented");
+    }
+
+    @Override
+    public String toString() {
+        return "ChessMove{" +
+                "Start: " + startPosition +
+                ", End: " + endPosition +
+                ", Promotion: " + promotionPiece +
+                '}';
     }
 }
