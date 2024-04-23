@@ -44,7 +44,6 @@ public class ChessPiece {
                 int newRow = row + i * direction[0];
                 int newCol = col + i * direction[1];
 
-                // Add move to list of possible moves and keep looping
                 if(validateMove(newRow, newCol, board, myPosition)){
                     ChessPosition validPosition = new ChessPosition(newRow, newCol);
                     validMoves.add(new ChessMove(myPosition, validPosition, null));
@@ -57,7 +56,6 @@ public class ChessPiece {
                 }
             }
         }
-        // Return HashSet of valid moves for the rook
         return validMoves;
     }
 
@@ -118,6 +116,28 @@ public class ChessPiece {
         return possibleDirections(board, myPosition, bishopDirections, bishopMoves);
     }
 
+    // Determine possible moves for a knight
+    private Set<ChessMove> checkKnight(ChessBoard board, ChessPosition myPosition){
+        Set<ChessMove> validMoves = new HashSet<>();
+
+        // Possible directions the knight can move (L-shape)
+        int[][] knightDirections = {{2, 1}, {2, -1}, {-2, 1}, {-2, -1}, {1, 2}, {1, -2}, {-1, 2}, {-1, -2}};
+
+        int row = myPosition.getRow();
+        int col = myPosition.getColumn();
+
+        for(int[] direction: knightDirections){
+            int newRow = row + direction[0];
+            int newCol = col + direction[1];
+
+            if(validateMove(newRow, newCol, board, myPosition)){
+                ChessPosition validPosition = new ChessPosition(newRow, newCol);
+                validMoves.add(new ChessMove(myPosition, validPosition, null));
+            }
+        }
+        return validMoves;
+    }
+
     // Determine possible moves for a rook
     private Set<ChessMove> checkRook(ChessBoard board, ChessPosition myPosition){
         Set<ChessMove> rookMoves = new HashSet<>();
@@ -151,7 +171,7 @@ public class ChessPiece {
             case KING -> checkKing(board, myPosition);
             case QUEEN -> checkQueen(board, myPosition);
             case BISHOP -> checkBishop(board, myPosition);
-            case KNIGHT -> null;
+            case KNIGHT -> checkKnight(board, myPosition);
             case ROOK -> checkRook(board, myPosition);
             case PAWN -> null;
         };
