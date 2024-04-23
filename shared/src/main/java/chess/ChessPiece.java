@@ -87,6 +87,13 @@ public class ChessPiece {
         return possibleDirections(board, myPosition, bishopDirections, validMoves);
     }
 
+    // Determine possible moves for a rook
+    private Set<ChessMove> checkRook(ChessBoard board, ChessPosition myPosition){
+        Set<ChessMove> validMoves = new HashSet<>();
+        int[][] rookDirections = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+        return possibleDirections(board, myPosition, rookDirections, validMoves);
+    }
+
     /**
      * @return Which team this chess piece belongs to
      */
@@ -114,7 +121,7 @@ public class ChessPiece {
             case QUEEN -> null;
             case BISHOP -> checkBishop(board, myPosition);
             case KNIGHT -> null;
-            case ROOK -> null;
+            case ROOK -> checkRook(board, myPosition);
             case PAWN -> null;
         };
     }
