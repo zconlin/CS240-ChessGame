@@ -80,25 +80,49 @@ public class ChessPiece {
         return false;
     }
 
+    // Determine possible moves for a king
+    private Set<ChessMove> checkKing(ChessBoard board, ChessPosition myPosition){
+        Set<ChessMove> kingMoves = new HashSet<>();
+
+        int row = myPosition.getRow();
+        int col = myPosition.getColumn();
+
+        for(int i = -1; i <= 1; i++){
+            for(int j = -1; j <= 1; j++){
+                int newRow = row + i;
+                int newCol = col + j;
+
+                if(validateMove(newRow, newCol, board, myPosition)){
+                    ChessPosition validPosition = new ChessPosition(newRow, newCol);
+                    kingMoves.add(new ChessMove(myPosition, validPosition, null));
+                    if(enemy){
+                        break;
+                    }
+                }
+            }
+        }
+        return kingMoves;
+    }
+
     // Determine possible moves for a queen
     private Set<ChessMove> checkQueen(ChessBoard board, ChessPosition myPosition){
-        Set<ChessMove> validMoves = new HashSet<>();
+        Set<ChessMove> queenMoves = new HashSet<>();
         int[][] queenDirections = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
-        return possibleDirections(board, myPosition, queenDirections, validMoves);
+        return possibleDirections(board, myPosition, queenDirections, queenMoves);
     }
 
     // Determine possible moves for a bishop
     private Set<ChessMove> checkBishop(ChessBoard board, ChessPosition myPosition){
-        Set<ChessMove> validMoves = new HashSet<>();
+        Set<ChessMove> bishopMoves = new HashSet<>();
         int[][] bishopDirections = {{1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
-        return possibleDirections(board, myPosition, bishopDirections, validMoves);
+        return possibleDirections(board, myPosition, bishopDirections, bishopMoves);
     }
 
     // Determine possible moves for a rook
     private Set<ChessMove> checkRook(ChessBoard board, ChessPosition myPosition){
-        Set<ChessMove> validMoves = new HashSet<>();
+        Set<ChessMove> rookMoves = new HashSet<>();
         int[][] rookDirections = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-        return possibleDirections(board, myPosition, rookDirections, validMoves);
+        return possibleDirections(board, myPosition, rookDirections, rookMoves);
     }
 
     /**
@@ -124,7 +148,7 @@ public class ChessPiece {
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         return switch (type) {
-            case KING -> null;
+            case KING -> checkKing(board, myPosition);
             case QUEEN -> checkQueen(board, myPosition);
             case BISHOP -> checkBishop(board, myPosition);
             case KNIGHT -> null;
