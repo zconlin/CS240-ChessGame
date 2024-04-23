@@ -80,6 +80,13 @@ public class ChessPiece {
         return false;
     }
 
+    // Determine possible moves for a queen
+    private Set<ChessMove> checkQueen(ChessBoard board, ChessPosition myPosition){
+        Set<ChessMove> validMoves = new HashSet<>();
+        int[][] queenDirections = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
+        return possibleDirections(board, myPosition, queenDirections, validMoves);
+    }
+
     // Determine possible moves for a bishop
     private Set<ChessMove> checkBishop(ChessBoard board, ChessPosition myPosition){
         Set<ChessMove> validMoves = new HashSet<>();
@@ -118,7 +125,7 @@ public class ChessPiece {
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
         return switch (type) {
             case KING -> null;
-            case QUEEN -> null;
+            case QUEEN -> checkQueen(board, myPosition);
             case BISHOP -> checkBishop(board, myPosition);
             case KNIGHT -> null;
             case ROOK -> checkRook(board, myPosition);
