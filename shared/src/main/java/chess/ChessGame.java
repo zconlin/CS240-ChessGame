@@ -11,8 +11,14 @@ import java.util.Collection;
 public class ChessGame {
 
     ChessBoard gameBoard;
+    ChessBoard testBoard;
+
+    ChessMove dangerPiece;
+
+    private boolean modifiedCopy;
 
     public ChessGame() {
+        gameBoard = new ChessBoard();
 
     }
 
@@ -68,7 +74,8 @@ public class ChessGame {
      * @return True if the specified team is in check
      */
     public boolean isInCheck(TeamColor teamColor) {
-        throw new RuntimeException("Not implemented");
+        testBoard = modifiedCopy ? testBoard : new ChessBoard(gameBoard);
+        return isKingInDanger(testBoard, teamColor);
     }
 
     /**
@@ -81,6 +88,28 @@ public class ChessGame {
         throw new RuntimeException("Not implemented");
     }
 
+    private boolean isKingInDanger(ChessBoard board, TeamColor teamColor) {
+        ChessPosition kingPosition = findKing(board, teamColor);
+        TeamColor opposingColor = (teamColor == TeamColor.WHITE) ? TeamColor.BLACK : TeamColor.WHITE;
+
+        for (int i = 1; i <= 8; i++) {
+            for (int j = 1; j <= 8; j++) {
+                ChessPosition opposingPosition = new ChessPosition(i, j);
+                ChessPiece piece = board.getPiece(opposingPosition);
+
+                if (piece != null && piece.getTeamColor() == opposingColor) {
+                    for (ChessMove check : piece.pieceMoves(board, opposingPosition)) {
+                        if (check.getEndPosition().equals(kingPosition)) {
+                            dangerPiece = check;
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * Determines if the given team is in stalemate, which here is defined as having
      * no valid moves
@@ -90,6 +119,20 @@ public class ChessGame {
      */
     public boolean isInStalemate(TeamColor teamColor) {
         throw new RuntimeException("Not implemented");
+    }
+
+    private ChessPosition findKing(ChessBoard board, TeamColor teamColor) {
+        for (int i = 1; i <= 8; i++) {
+            for (int j = 1; j <= 8; j++) {
+                ChessPosition position = new ChessPosition(i, j);
+                ChessPiece piece = board.getPiece(position);
+
+                if (piece != null && piece.getPieceType() == ChessPiece.PieceType.KING && piece.getTeamColor() == teamColor) {
+                    return position;
+                }
+            }
+        }
+        return null;
     }
 
     /**
