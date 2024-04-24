@@ -16,6 +16,24 @@ public class ChessBoard {
         board = new ChessPiece[8][8];
     }
 
+    // Constructor for copy
+    public ChessBoard(ChessBoard original) {
+        this.board = original.copy();
+    }
+
+    // Method to perform copy
+    private ChessPiece[][] copy() {
+        ChessPiece[][] copy = new ChessPiece[8][8];
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] != null) {
+                    copy[i][j] = board[i][j].copy();
+                }
+            }
+        }
+        return copy;
+    }
+
     /**
      * Adds a chess piece to the chessboard
      *
@@ -74,11 +92,6 @@ public class ChessBoard {
         ChessPosition position = new ChessPosition(row, col);
         ChessPiece piece = new ChessPiece(color, type);
         addPiece(position, piece);
-    }
-
-    public void movePiece(ChessPosition startPosition, ChessPosition nextPosition, ChessPiece piece) {
-        board[nextPosition.getRow() - 1][nextPosition.getColumn() - 1] = piece;
-        board[startPosition.getRow() - 1][startPosition.getColumn() - 1] = null;
     }
 
     @Override

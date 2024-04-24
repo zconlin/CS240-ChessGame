@@ -23,6 +23,11 @@ public class ChessPiece {
         this.pieceColor = pieceColor;
     }
 
+    // Copy method
+    public ChessPiece copy() {
+        return new ChessPiece(this.pieceColor, this.type);
+    }
+
     /**
      * The various different chess piece options
      */
