@@ -15,6 +15,8 @@ public class ChessGame {
 
     ChessMove dangerPiece;
 
+    TeamColor turn;
+
     private boolean modifiedCopy;
 
     public ChessGame() {
@@ -35,7 +37,7 @@ public class ChessGame {
      * @param team the team whose turn it is
      */
     public void setTeamTurn(TeamColor team) {
-        throw new RuntimeException("Not implemented");
+        turn = team;
     }
 
     /**
@@ -85,7 +87,8 @@ public class ChessGame {
      * @return True if the specified team is in checkmate
      */
     public boolean isInCheckmate(TeamColor teamColor) {
-        throw new RuntimeException("Not implemented");
+        testBoard = new ChessBoard(gameBoard);
+        return isKingInDanger(testBoard, teamColor);
     }
 
     private boolean isKingInDanger(ChessBoard board, TeamColor teamColor) {
