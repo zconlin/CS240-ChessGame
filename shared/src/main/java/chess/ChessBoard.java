@@ -94,6 +94,11 @@ public class ChessBoard {
         addPiece(position, piece);
     }
 
+    public void movePiece(ChessPosition startPosition, ChessPosition nextPosition, ChessPiece piece){
+        board[nextPosition.getRow()-1][nextPosition.getColumn()-1] = piece;
+        board[startPosition.getRow()-1][startPosition.getColumn()-1] = null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
