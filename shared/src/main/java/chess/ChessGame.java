@@ -42,6 +42,19 @@ public class ChessGame {
         turn = team;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChessGame chessGame = (ChessGame) o;
+        return modifiedCopy == chessGame.modifiedCopy && Objects.equals(gameBoard, chessGame.gameBoard) && Objects.equals(boardCopy, chessGame.boardCopy) && Objects.equals(dangerPiece, chessGame.dangerPiece) && turn == chessGame.turn;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(gameBoard, boardCopy, dangerPiece, turn, modifiedCopy);
+    }
+
     /**
      * Enum identifying the 2 possible teams in a chess game
      */
@@ -175,7 +188,27 @@ public class ChessGame {
      * @return True if the specified team is in stalemate, otherwise false
      */
     public boolean isInStalemate(TeamColor teamColor) {
-        throw new RuntimeException("Not implemented");
+        ChessPosition position;
+
+        for(int i = 1; i <= 8; i++) {
+            for (int j = 1; j <= 8; j++) {
+                position = new ChessPosition(i, j);
+                if(gameBoard.getPiece(position) != null && gameBoard.getPiece(position).getTeamColor() == teamColor){
+                    for(ChessMove move : validMoves(position)){
+                        boardCopy = new ChessBoard(gameBoard);
+                        //move piece on testBoard
+                        boardCopy.movePiece(move.getStartPosition(), move.getEndPosition(), boardCopy.getPiece(move.getStartPosition()));
+                        modifiedCopy = true;
+                        if(!isInCheck(teamColor)){
+                            // If at least one valid move is found that doesn't result in the king being checked,
+                            // the team is not in stalemate
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     private ChessPosition findKing(ChessBoard board, TeamColor teamColor) {
@@ -211,15 +244,10 @@ public class ChessGame {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ChessGame chessGame = (ChessGame) o;
-        return modifiedCopy == chessGame.modifiedCopy && Objects.equals(gameBoard, chessGame.gameBoard) && Objects.equals(boardCopy, chessGame.boardCopy) && Objects.equals(dangerPiece, chessGame.dangerPiece) && turn == chessGame.turn;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(gameBoard, boardCopy, dangerPiece, turn, modifiedCopy);
+    public String toString() {
+        return "ChessGame{" +
+                "gameBoard=" + gameBoard +
+                ", turn=" + turn +
+                '}';
     }
 }
