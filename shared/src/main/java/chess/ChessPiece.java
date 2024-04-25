@@ -282,16 +282,21 @@ public class ChessPiece {
     }
 
     @Override
+    public String toString() {
+        return pieceColor + " " + type;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ChessPiece that = (ChessPiece) o;
-        return enemy == that.enemy && type == that.type && pieceColor == that.pieceColor;
+        return type == that.type && pieceColor == that.pieceColor;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, pieceColor, enemy);
+        return Objects.hash(type, pieceColor);
     }
 
 }

@@ -42,19 +42,6 @@ public class ChessGame {
         turn = team;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ChessGame chessGame = (ChessGame) o;
-        return modifiedCopy == chessGame.modifiedCopy && Objects.equals(gameBoard, chessGame.gameBoard) && Objects.equals(boardCopy, chessGame.boardCopy) && Objects.equals(dangerPiece, chessGame.dangerPiece) && turn == chessGame.turn;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(gameBoard, boardCopy, dangerPiece, turn, modifiedCopy);
-    }
-
     /**
      * Enum identifying the 2 possible teams in a chess game
      */
@@ -249,5 +236,18 @@ public class ChessGame {
                 "gameBoard=" + gameBoard +
                 ", turn=" + turn +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChessGame chessGame = (ChessGame) o;
+        return modifiedCopy == chessGame.modifiedCopy && Objects.equals(gameBoard, chessGame.gameBoard) && Objects.equals(boardCopy, chessGame.boardCopy) && Objects.equals(dangerPiece, chessGame.dangerPiece) && turn == chessGame.turn;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(gameBoard, boardCopy, dangerPiece, turn, modifiedCopy);
     }
 }
