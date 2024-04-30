@@ -1,9 +1,7 @@
 package chess;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Represents a single chess piece
@@ -16,7 +14,7 @@ public class ChessPiece {
     PieceType type;
     ChessGame.TeamColor pieceColor;
 
-    boolean enemy;
+    boolean enemyPiece;
 
     public ChessPiece(ChessGame.TeamColor pieceColor, PieceType type) {
         this.type = type;
@@ -53,7 +51,7 @@ public class ChessPiece {
                 if(validateMove(newRow, newCol, board, myPosition)){
                     ChessPosition validPosition = new ChessPosition(newRow, newCol);
                     validMoves.add(new ChessMove(myPosition, validPosition, null));
-                    if(enemy){
+                    if(enemyPiece){
                         break;
                     }
                 }else{
@@ -68,18 +66,18 @@ public class ChessPiece {
     // Checks if move is on the board, if the space is occupied, and if the space is occupied by the opponent
     public boolean validateMove(int row, int col, ChessBoard board, ChessPosition myPosition){
         int boardSize = 8;
-        enemy = false;
+        enemyPiece = false;
 
         if((row > 0 && row <= boardSize) && (col > 0 && col <= boardSize)){
             if(board.getPiece(new ChessPosition(row,col)) != null){
                 // If the square is occupied, return the color of piece
                 if(board.getPiece(myPosition).getTeamColor() != board.getPiece(new ChessPosition(row,col)).getTeamColor()){
-                    enemy = true;
+                    enemyPiece = true;
                     return true;
                 }
             }
             // Check if that space is already occupied or if the space is occupied by the opponent
-            return board.getPiece(new ChessPosition(row, col)) == null || enemy;
+            return board.getPiece(new ChessPosition(row, col)) == null || enemyPiece;
         }
         return false;
     }
@@ -99,7 +97,7 @@ public class ChessPiece {
                 if(validateMove(newRow, newCol, board, myPosition)){
                     ChessPosition validPosition = new ChessPosition(newRow, newCol);
                     kingMoves.add(new ChessMove(myPosition, validPosition, null));
-                    if(enemy){
+                    if(enemyPiece){
                         break;
                     }
                 }
@@ -152,77 +150,77 @@ public class ChessPiece {
     }
 
     // Determine possible moves for a pawn
-    private Set<ChessMove> checkPawn(ChessBoard board, ChessPosition myPosition){
+    private Set<ChessMove> checkPawn(ChessBoard board, ChessPosition myPosition) {
         Set<ChessMove> validMoves = new HashSet<>();
 
         int row = myPosition.getRow();
         int col = myPosition.getColumn();
 
         int player = (pieceColor == ChessGame.TeamColor.WHITE) ? 1 : -1;
-        ChessPosition validPosition = new ChessPosition(row+player, col);
 
-        // If pawn is getting promoted, give promotion options
-        if (promotionRow(row) && (validatePawn(row+player, col, board))){
-            promotionMoves(validMoves, myPosition, validPosition);
-        } else if(startingRow(row)){
-            // If it is the first move of the pawn, it can move two spaces
-            for(int i = 1; i < 3; i++){
-                if(validatePawn(row+(player*i), col, board)){
-                    validPosition = new ChessPosition(row+(i*player), col);
-                    validMoves.add(new ChessMove(myPosition, validPosition, null));
-                }else{
-                    break;
-                }
-            }
-        } else if(validatePawn(row+player, col, board)) { // Normal forward movement of pawn
-            validMoves.add(new ChessMove(myPosition, validPosition, null));
-        }
+        addPawnMoves(validMoves, myPosition, player, row, col, board);
+
         // Can the pawn capture diagonally
         diagonalPawnMoves(validMoves, row, col, player, myPosition, board);
 
         return validMoves;
     }
 
-    // Is the pawn in a position to be promoted
-    private boolean promotionRow(int row){
-        return (pieceColor == ChessGame.TeamColor.WHITE && row == 7) ||
-                (pieceColor == ChessGame.TeamColor.BLACK && row == 2);
+    private void addPawnMoves(Set<ChessMove> validMoves, ChessPosition myPosition, int player, int row, int col, ChessBoard board) {
+        ChessPosition validPosition = new ChessPosition(row + player, col);
+
+        // If pawn is getting promoted, give promotion options
+        if (promotionRow(row) && validatePawn(row + player, col, board)) {
+            promotionMoves(validMoves, myPosition, validPosition);
+        } else if (startingRow(row)) {
+            // If it is the first move of the pawn, it can move two spaces
+            for (int i = 1; i < 3; i++) {
+                if (validatePawn(row + (player * i), col, board)) {
+                    validPosition = new ChessPosition(row + (i * player), col);
+                    validMoves.add(new ChessMove(myPosition, validPosition, null));
+                } else {
+                    break;
+                }
+            }
+        } else if (validatePawn(row + player, col, board)) { // Normal forward movement of pawn
+            validMoves.add(new ChessMove(myPosition, validPosition, null));
+        }
     }
 
     // Is the pawn in the starting row
     private boolean startingRow(int row){
-        return (pieceColor == ChessGame.TeamColor.WHITE && row == 2) ||
-                (pieceColor == ChessGame.TeamColor.BLACK && row == 7);
+        return (pieceColor == ChessGame.TeamColor.WHITE ? row == 2 : row == 7);
+    }
+
+    // Is the pawn in a position to be promoted
+    private boolean promotionRow(int row){
+        return (pieceColor == ChessGame.TeamColor.BLACK ? row == 2 : row == 7);
     }
 
     // Promotion options for the pawn
-    private void promotionMoves(Set<ChessMove> validMoves, ChessPosition myPosition, ChessPosition validPosition){
-        validMoves.add(new ChessMove(myPosition, validPosition, PieceType.QUEEN));
-        validMoves.add(new ChessMove(myPosition, validPosition, PieceType.BISHOP));
-        validMoves.add(new ChessMove(myPosition, validPosition, PieceType.KNIGHT));
-        validMoves.add(new ChessMove(myPosition, validPosition, PieceType.ROOK));
+    private void promotionMoves(Set<ChessMove> validMoves, ChessPosition myPosition, ChessPosition validPosition) {
+        Stream.of(PieceType.QUEEN, PieceType.BISHOP, PieceType.KNIGHT, PieceType.ROOK)
+                .map(pieceType -> new ChessMove(myPosition, validPosition, pieceType))
+                .forEach(validMoves::add);
     }
 
-    // Check if the pawn can capture diagonally
-    private void diagonalPawnMoves(Set<ChessMove> validMoves, int row, int col, int player, ChessPosition myPosition, ChessBoard board){
-        // Check diagonals
-        int[][] possibleDirections = {{1, 1}, {1,-1}};
+    private void diagonalPawnMoves(Set<ChessMove> validMoves, int row, int col, int player, ChessPosition myPosition, ChessBoard board) {
+        // Define possible diagonal directions
+        int[][] diagonalDirections = { { 1, 1 }, { 1, -1 } };
 
-        for(int[] direction: possibleDirections){
-            int newRow = row + player * direction[0];
-            int newCol = col + player * direction[1];
-
-            ChessPosition validPosition = new ChessPosition(newRow, newCol);
-
-            if(enemyChecker(newRow, newCol, board, myPosition)) {
-                if(promotionRow(row)){
-                    // If pawn is getting promoted, give promotion options
-                    promotionMoves(validMoves, myPosition, validPosition);
-                }else{
-                    validMoves.add(new ChessMove(myPosition, validPosition, null));
-                }
-            }
-        }
+        // Calculate potential positions for diagonal moves
+        Arrays.stream(diagonalDirections)
+                .map(direction -> new ChessPosition(row + player * direction[0], col + player * direction[1]))
+                .filter(potentialPosition -> enemyChecker(potentialPosition.getRow(), potentialPosition.getColumn(), board, myPosition))
+                .forEach(potentialPosition -> {
+                    // If the pawn is in a promotion row, add promotion options
+                    if (promotionRow(row)) {
+                        promotionMoves(validMoves, myPosition, potentialPosition);
+                    } else {
+                        // Otherwise, add the potential move to the valid moves
+                        validMoves.add(new ChessMove(myPosition, potentialPosition, null));
+                    }
+                });
     }
 
     // Checks to see if the pawn can move to a new position
@@ -233,18 +231,18 @@ public class ChessPiece {
                 && board.getPiece(new ChessPosition(row, col)) == null;
     }
 
-    // Checks if the space is occupied by the opponent
-    private boolean enemyChecker(int row, int col, ChessBoard board, ChessPosition myPosition){
+    private boolean enemyChecker(int row, int col, ChessBoard board, ChessPosition myPosition) {
         int boardSize = 8;
-        enemy = false;
 
-        // Make sure the new position is on the board
-        if((row > 0 && row <= boardSize) && (col > 0 && col <= boardSize)) {
-            if (board.getPiece(new ChessPosition(row, col)) != null) {
-                // If the spot is occupied, check if it is an enemy piece
-                enemy = board.getPiece(new ChessPosition(row,col)).getTeamColor() != board.getPiece(myPosition).getTeamColor();
+        // Check if the position is within the board boundaries
+        if (row >= 1 && row <= boardSize && col >= 1 && col <= boardSize) {
+            ChessPiece targetPiece = board.getPiece(new ChessPosition(row, col));
+
+            // Check if there is a piece at the given position
+            if (targetPiece != null) {
+                // Check if the piece at the position belongs to the opponent
+                return targetPiece.getTeamColor() != board.getPiece(myPosition).getTeamColor();
             }
-            return enemy;
         }
         return false;
     }
@@ -298,5 +296,4 @@ public class ChessPiece {
     public int hashCode() {
         return Objects.hash(type, pieceColor);
     }
-
 }
