@@ -17,7 +17,7 @@ public class ChessGame {
 
     ChessMove dangerPiece;
 
-    TeamColor turn;
+    TeamColor turn = TeamColor.WHITE;
 
     private boolean modifiedCopy;
 
