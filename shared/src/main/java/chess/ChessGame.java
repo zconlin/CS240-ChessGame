@@ -23,7 +23,11 @@ public class ChessGame {
 
     public ChessGame() {
         gameBoard = new ChessBoard();
+        initializeBoard();
+    }
 
+    private void initializeBoard() {
+        gameBoard.resetBoard();
     }
 
     /**
