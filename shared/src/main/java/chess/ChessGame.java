@@ -142,7 +142,34 @@ public class ChessGame {
      */
     public boolean isInCheckmate(TeamColor teamColor) {
         boardCopy = new ChessBoard(gameBoard);
-        return isKingInDanger(boardCopy, teamColor);
+
+        // Check if the team is in check
+        if (!isInCheck(teamColor)) {
+            return false;
+        }
+
+        // Check if any piece can block the check or capture the threatening piece
+        for(int i = 1; i <= 8; i++) {
+            for (int j = 1; j <= 8; j++) {
+                ChessPosition position = new ChessPosition(i, j);
+                if(gameBoard.getPiece(position) != null && gameBoard.getPiece(position).getTeamColor() == teamColor){
+                    for(ChessMove move : validMoves(position)){
+                        boardCopy = new ChessBoard(gameBoard);
+                        // Move the piece on the test board
+                        boardCopy.movePiece(move.getStartPosition(), move.getEndPosition(), boardCopy.getPiece(move.getStartPosition()));
+                        modifiedCopy = true;
+                        if(!isInCheck(teamColor)){
+                            // If at least one valid move is found that doesn't result in the king being checked,
+                            // the team is not in checkmate
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        // If no valid moves can get the team out of check, it's checkmate
+        return true;
     }
 
     private boolean isKingInDanger(ChessBoard board, TeamColor teamColor) {
