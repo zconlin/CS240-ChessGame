@@ -135,7 +135,24 @@ public class ChessGame {
      */
     public boolean isInCheck(TeamColor teamColor) {
         boardCopy = modifiedCopy ? boardCopy : new ChessBoard(gameBoard);
-        return isKingInDanger(boardCopy, teamColor);
+        ChessPosition opposingPosition;
+        ChessPosition kingPosition = findKing(boardCopy, teamColor);
+        TeamColor opposingColor = (teamColor == TeamColor.WHITE) ? TeamColor.BLACK : TeamColor.WHITE;
+
+        for (int i = 1; i <= 8; i++) {
+            for (int j = 1; j <= 8; j++) {
+                opposingPosition = new ChessPosition(i, j);
+                if (boardCopy.getPiece(opposingPosition) != null && boardCopy.getPiece(opposingPosition).getTeamColor() == opposingColor) {
+                    for (ChessMove check : boardCopy.getPiece(opposingPosition).pieceMoves(boardCopy, opposingPosition)) {
+                        if (check.getEndPosition().equals(kingPosition)) {
+                            dangerPiece = check;
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -176,28 +193,6 @@ public class ChessGame {
         return true;
     }
 
-    private boolean isKingInDanger(ChessBoard board, TeamColor teamColor) {
-        ChessPosition kingPosition = findKing(board, teamColor);
-        TeamColor opposingColor = (teamColor == TeamColor.WHITE) ? TeamColor.BLACK : TeamColor.WHITE;
-
-        for (int i = 1; i <= 8; i++) {
-            for (int j = 1; j <= 8; j++) {
-                ChessPosition opposingPosition = new ChessPosition(i, j);
-                ChessPiece piece = board.getPiece(opposingPosition);
-
-                if (piece != null && piece.getTeamColor() == opposingColor) {
-                    for (ChessMove check : piece.pieceMoves(board, opposingPosition)) {
-                        if (check.getEndPosition().equals(kingPosition)) {
-                            dangerPiece = check;
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
     /**
      * Determines if the given team is in stalemate, which here is defined as having
      * no valid moves
@@ -211,10 +206,13 @@ public class ChessGame {
         for(int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 8; j++) {
                 position = new ChessPosition(i, j);
+
+                if (isInCheck(teamColor)) return false;
+
                 if(gameBoard.getPiece(position) != null && gameBoard.getPiece(position).getTeamColor() == teamColor){
                     for(ChessMove move : validMoves(position)){
                         boardCopy = new ChessBoard(gameBoard);
-                        //move piece on testBoard
+                        // Move piece on testBoard
                         boardCopy.movePiece(move.getStartPosition(), move.getEndPosition(), boardCopy.getPiece(move.getStartPosition()));
                         modifiedCopy = true;
                         if(!isInCheck(teamColor)){
