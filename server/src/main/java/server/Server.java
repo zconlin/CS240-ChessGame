@@ -1,5 +1,6 @@
 package server;
 
+import handler.LoginHandler;
 import spark.*;
 
 public class Server {
@@ -13,6 +14,10 @@ public class Server {
 
         Spark.awaitInitialization();
         return Spark.port();
+    }
+
+    private void defineRoutes(){
+        Spark.post("/session", new LoginHandler());
     }
 
     public void stop() {
