@@ -25,4 +25,8 @@ public class AuthDAO extends DataAccess {
 
     public void deleteAuthToken(AuthToken authToken) throws DataAccessException {
     }
+
+    public String getUsername(AuthToken authToken) {
+        return "";
+    }
 }

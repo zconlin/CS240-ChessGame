@@ -1,7 +1,6 @@
 package dataaccess;
 
 import model.Game;
-import dataaccess.DataAccessException;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,6 +29,9 @@ public class GameDAO extends DataAccess {
     }
 
     public void claimSpot(String gameID, String playerID) throws DataAccessException {
+    }
+
+    public void claimSpot(int id, String gameID, String playerID) throws DataAccessException {
     }
 
     public void clear(){
