@@ -15,12 +15,12 @@ public class JoinGameService extends Service {
     }
 
     public JoinGameResult joinGame(JoinGameRequest request) {
-        //Check if authentication token or gameID are null
-        if (request.getAuthToken() == null || request.getGameID() == 0) {
-            return new JoinGameResult(400, "Error: bad request");
+        // Check if authentication token or gameID are null
+        if (request.getAuthToken() == null) { //|| request.getGameID() == 0) {
+            return new JoinGameResult(400, "JoinGame Error: bad request");
         }
 
-        //Check if authentication token is valid
+        // Check if authentication token is valid
         try {
             authDAO.checkAuthToken(request.getAuthToken());
         } catch (Exception e) {

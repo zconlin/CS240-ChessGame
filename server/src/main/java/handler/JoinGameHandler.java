@@ -22,12 +22,13 @@ public class JoinGameHandler extends Handler {
         return (new Gson()).toJson(javaResultObj);
     }
 
+    @Override
     public JoinGameRequest getRequestClass(Request request) {
         JoinGameRequest req;
         if (request.body() != null) {
             try {
-                req = (JoinGameRequest)(new Gson()).fromJson(request.body(), JoinGameRequest.class);
-            } catch (Exception var4) {
+                req = new Gson().fromJson(request.body(), JoinGameRequest.class);
+            } catch (Exception e) {
                 req = new JoinGameRequest();
             }
         } else {
@@ -35,11 +36,10 @@ public class JoinGameHandler extends Handler {
         }
 
         if (request.headers("Authorization") != null) {
-            AuthToken token = new AuthToken();
+            var token = new AuthToken();
             token.setAuthToken(request.headers("Authorization"));
             req.setAuthToken(token);
         }
-
         return req;
     }
 }

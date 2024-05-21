@@ -12,7 +12,6 @@ public class AuthToken {
         this.username = null;
     }
 
-
     public AuthToken(String username) {
         this.authToken = UUID.randomUUID().toString();
         this.username = username;

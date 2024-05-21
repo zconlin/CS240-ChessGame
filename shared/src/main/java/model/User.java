@@ -8,12 +8,6 @@ public class User {
     private String password;
     private String email;
 
-    public User() {
-        this.username = null;
-        this.password = null;
-        this.email = null;
-    }
-
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
