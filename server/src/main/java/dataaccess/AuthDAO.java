@@ -14,14 +14,14 @@ public class AuthDAO extends DataAccess {
     }
 
     public void addAuthToken(AuthToken authToken) throws DataAccessException {
+        authTokens.add(authToken);
     }
 
     public boolean checkAuthToken(AuthToken authToken) throws DataAccessException {
         return false;
     }
 
-    public void clear(){
-    }
+    public void clear(){    }
 
     public void deleteAuthToken(AuthToken authToken) throws DataAccessException {
     }

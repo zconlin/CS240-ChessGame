@@ -4,7 +4,6 @@ import requestclasses.LoginRequest;
 import resultclasses.LoginResult;
 import services.LoginService;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import spark.Request;
 import spark.Response;
 
@@ -16,10 +15,11 @@ public class LoginHandler extends Handler {
     }
 
     public Object handle(Request request, Response response) {
+        String authToken = request.headers("authorization");
         LoginRequest javaRequestObj = this.getRequestClass(request);
         LoginResult javaResultObj = this.service.login(javaRequestObj);
         response.status(javaResultObj.getStatus());
-        return (new GsonBuilder()).excludeFieldsWithoutExposeAnnotation().create().toJson(javaResultObj);
+        return new Gson().toJson(javaResultObj.getAuthToken());
     }
 
     public LoginRequest getRequestClass(Request request) {

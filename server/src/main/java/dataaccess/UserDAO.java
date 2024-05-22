@@ -14,19 +14,19 @@ public class UserDAO extends DataAccess {
     }
 
     public void addUser(User user) throws DataAccessException {
+        users.put(user.getUsername(), user);
     }
 
     public User getUser(String username) throws DataAccessException {
-        return null;
+        return users.get(username);
     }
 
     public User updateUser(User user) throws DataAccessException {
         return null;
     }
 
-    public void clear(){
-    }
+    public void clear(){    }
 
-    public void deleteUser(User user) throws DataAccessException {
-    }
+    public void deleteUser(User user) throws DataAccessException {    }
+
 }

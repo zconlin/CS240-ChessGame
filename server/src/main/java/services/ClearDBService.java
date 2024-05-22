@@ -17,8 +17,8 @@ public class ClearDBService extends Service {
             this.authDAO.clear();
             this.gameDAO.clear();
             this.userDAO.clear();
-        } catch (Exception var3) {
-            return new ClearDBResult(500, "Error: " + var3.getMessage());
+        } catch (Exception e) {
+            return new ClearDBResult(500, "Error: " + e.getMessage());
         }
 
         return new ClearDBResult(200);

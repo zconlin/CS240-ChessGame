@@ -3,7 +3,6 @@ package requestclasses;
 public class LoginRequest extends Request {
 
     private String username;
-
     private String password;
 
     public LoginRequest() {
