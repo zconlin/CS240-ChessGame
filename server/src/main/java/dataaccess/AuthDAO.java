@@ -3,30 +3,50 @@ package dataaccess;
 import model.AuthToken;
 import dataaccess.DataAccessException;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 public class AuthDAO extends DataAccess {
 
-    private HashSet<AuthToken> authTokens = new HashSet<>();
+    private HashMap<String, AuthToken> authTokens = new HashMap<>();
 
     public AuthDAO() {
         super();
     }
 
     public void addAuthToken(AuthToken authToken) throws DataAccessException {
-        authTokens.add(authToken);
+        authTokens.put(authToken.getAuthToken(), authToken);
     }
 
-    public boolean checkAuthToken(AuthToken authToken) throws DataAccessException {
-        return false;
+    public boolean checkAuthToken(String authToken) throws DataAccessException {
+        if (!authTokenExists(authToken)) {
+            throw new DataAccessException("Error: Authentication token does not exist");
+        }
+        return true;
     }
 
-    public void clear(){    }
-
-    public void deleteAuthToken(AuthToken authToken) throws DataAccessException {
+    public void clear(){
+        authTokens.clear();
     }
 
-    public String getUsername(AuthToken authToken) {
-        return "";
+    public void deleteAuthToken(String authToken) throws DataAccessException {
+        if (!authTokenExists(authToken)) {
+            throw new DataAccessException("Error: Authentication token does not exist");
+        }
+        authTokens.remove(authToken);
+    }
+
+    public AuthToken getAuthToken(String authToken) throws DataAccessException {
+        if (!authTokenExists(authToken)) {
+            throw new DataAccessException("Error: Authentication token does not exist");
+        }
+        return authTokens.get(authToken);
+    }
+
+    public String getUsername(String authToken) {
+        return authTokens.get(authToken).getUsername();
+    }
+
+    public boolean authTokenExists(String authToken) throws DataAccessException {
+        return authTokens.containsKey(authToken);
     }
 }

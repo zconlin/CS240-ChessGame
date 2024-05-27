@@ -1,6 +1,8 @@
 package dataaccess;
 
 import model.Game;
+import model.GamesList;
+import resultclasses.ListGamesResult;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,35 +11,48 @@ public class GameDAO extends DataAccess {
 
     private HashMap<String, Game> games = new HashMap<>();
 
+    private int gameID;
+
     public GameDAO() {
         super();
+        gameID = 1;
     }
 
     public void addGame(Game game) throws DataAccessException {
+        game.setGameID(Integer.toString(gameID));
+        incrementGameID();
+        games.put(game.getGameID(), game);
     }
 
     public Game getGame(String gameID) throws DataAccessException {
-        return null;
+        return games.get(gameID);
     }
 
-    public HashSet<Game> getAllGames() throws DataAccessException {
-        return null;
+    private void incrementGameID(){
+        gameID++;
+    }
+
+    public Game[] getAllGames() throws DataAccessException {
+        return (Game[]) games.values().toArray(new Game[0]);
     }
 
     public Game updateGame(Game game) throws DataAccessException {
-        return null;
+        return games.put(game.getGameID(), game);
     }
 
     public void claimSpot(String gameID, String playerID) throws DataAccessException {
+
     }
 
     public void claimSpot(int id, String gameID, String playerID) throws DataAccessException {
     }
 
     public void clear(){
+        games.clear();
     }
 
     public void deleteGame(Game game) throws DataAccessException {
+        games.remove(game.getGameID());
     }
 
 }
