@@ -33,7 +33,7 @@ public class LoginService extends Service {
         } catch (Exception e) {
             throw new ServerException("Error: " + e.getMessage(), 500);
         }
-        if (user == null || !user.getPassword().equals(request.getPassword())) {
+        if (user == null || !user.password().equals(request.getPassword())) {
             throw new ServerException("Error: unauthorized", 401);
         }
         //Add auth token

@@ -18,7 +18,7 @@ public class UserDAO extends DataAccess {
             throw new DataAccessException("Error: Username already exists");
         }
 
-        users.put(user.getUsername(), user);
+        users.put(user.username(), user);
     }
 
     public User getUser(String username) throws DataAccessException {
@@ -34,11 +34,11 @@ public class UserDAO extends DataAccess {
             throw new DataAccessException("Error: Username does not exist");
         }
 
-        return users.put(user.getUsername(), user);
+        return users.put(user.username(), user);
     }
 
     public boolean userExists(User user) {
-        return users.containsKey(user.getUsername());
+        return users.containsKey(user.username());
     }
 
     public void clear() throws DataAccessException {
@@ -50,7 +50,7 @@ public class UserDAO extends DataAccess {
             throw new DataAccessException("Error: Username does not exist");
         }
 
-        users.remove(user.getUsername());
+        users.remove(user.username());
     }
 
 }

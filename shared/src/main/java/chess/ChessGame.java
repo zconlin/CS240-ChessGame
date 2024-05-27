@@ -173,19 +173,7 @@ public class ChessGame {
         for(int i = 1; i <= 8; i++) {
             for (int j = 1; j <= 8; j++) {
                 ChessPosition position = new ChessPosition(i, j);
-                if(gameBoard.getPiece(position) != null && gameBoard.getPiece(position).getTeamColor() == teamColor){
-                    for(ChessMove move : validMoves(position)){
-                        boardCopy = new ChessBoard(gameBoard);
-                        // Move the piece on the test board
-                        boardCopy.movePiece(move.getStartPosition(), move.getEndPosition(), boardCopy.getPiece(move.getStartPosition()));
-                        modifiedCopy = true;
-                        if(!isInCheck(teamColor)){
-                            // If at least one valid move is found that doesn't result in the king being checked,
-                            // the team is not in checkmate
-                            return false;
-                        }
-                    }
-                }
+                if (!blockCheckCheck(position, teamColor)) return false;
             }
         }
 
@@ -209,19 +197,7 @@ public class ChessGame {
 
                 if (isInCheck(teamColor)) return false;
 
-                if(gameBoard.getPiece(position) != null && gameBoard.getPiece(position).getTeamColor() == teamColor){
-                    for(ChessMove move : validMoves(position)){
-                        boardCopy = new ChessBoard(gameBoard);
-                        // Move piece on testBoard
-                        boardCopy.movePiece(move.getStartPosition(), move.getEndPosition(), boardCopy.getPiece(move.getStartPosition()));
-                        modifiedCopy = true;
-                        if(!isInCheck(teamColor)){
-                            // If at least one valid move is found that doesn't result in the king being checked,
-                            // the team is not in stalemate
-                            return false;
-                        }
-                    }
-                }
+                if (!blockCheckCheck(position, teamColor)) return false;
             }
         }
         return true;
@@ -240,6 +216,24 @@ public class ChessGame {
         }
         return null;
     }
+
+    public Boolean blockCheckCheck(ChessPosition position, TeamColor teamColor) {
+        if (gameBoard.getPiece(position) != null && gameBoard.getPiece(position).getTeamColor() == teamColor) {
+            for (ChessMove move : validMoves(position)) {
+                boardCopy = new ChessBoard(gameBoard);
+                // Move the piece on the test board
+                boardCopy.movePiece(move.getStartPosition(), move.getEndPosition(), boardCopy.getPiece(move.getStartPosition()));
+                modifiedCopy = true;
+                if (!isInCheck(teamColor)) {
+                    // If at least one valid move is found that doesn't result in the king being checked,
+                    // the team is not in checkmate
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
     /**
      * Sets this game's chessboard with a given board

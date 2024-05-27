@@ -1,18 +1,12 @@
-package myTests;
+package service;
 
 import dataaccess.*;
 import handler.*;
-import model.AuthToken;
-import model.Game;
-import model.User;
 import requestclasses.RegisterRequest;
 import server.ServerException;
 import services.*;
-import chess.ChessGame;
 import org.junit.jupiter.api.*;
 import server.Server;
-
-import java.util.ArrayList;
 
 public class ServiceTests{
     // Server
@@ -111,7 +105,7 @@ public class ServiceTests{
 //
 //        // Check that the database is empty
 //        Assertions.assertThrows(DataAccessException.class, () -> this.authDAO.checkAuthToken(temp));
-//        Assertions.assertThrows(DataAccessException.class, () -> this.userDAO.getUser(tempUser.getUsername()));
+//        Assertions.assertThrows(DataAccessException.class, () -> this.userDAO.getUser(tempuser.username()));
 ////        Assertions.assertThrows(DataAccessException.class, () -> this.gameDAO.getGame(tempGame.getGameID()));
 //    }
 
@@ -130,9 +124,9 @@ public class ServiceTests{
         try {
             var user = this.userDAO.getUser("test");
             Assertions.assertNotNull(user);
-            Assertions.assertEquals("test", user.getUsername());
-            Assertions.assertEquals("test", user.getPassword());
-            Assertions.assertEquals("test", user.getEmail());
+            Assertions.assertEquals("test", user.username());
+            Assertions.assertEquals("test", user.password());
+            Assertions.assertEquals("test", user.email());
         } catch (Exception e) {
             e.printStackTrace();
             Assertions.fail("Exception thrown");
@@ -163,9 +157,9 @@ public class ServiceTests{
         try {
             var user = this.userDAO.getUser("test");
             Assertions.assertNotNull(user);
-            Assertions.assertEquals("test", user.getUsername());
-            Assertions.assertEquals("test", user.getPassword());
-            Assertions.assertEquals("test", user.getEmail());
+            Assertions.assertEquals("test", user.username());
+            Assertions.assertEquals("test", user.password());
+            Assertions.assertEquals("test", user.email());
         } catch (Exception e) {
             e.printStackTrace();
             Assertions.fail("Exception thrown");
@@ -197,9 +191,9 @@ public class ServiceTests{
         try {
             var user = this.userDAO.getUser("test");
             Assertions.assertNotNull(user);
-            Assertions.assertEquals("test", user.getUsername());
-            Assertions.assertEquals("test", user.getPassword());
-            Assertions.assertEquals("test", user.getEmail());
+            Assertions.assertEquals("test", user.username());
+            Assertions.assertEquals("test", user.password());
+            Assertions.assertEquals("test", user.email());
         } catch (Exception e) {
             e.printStackTrace();
             Assertions.fail("Exception thrown");
@@ -233,9 +227,9 @@ public class ServiceTests{
         try {
             var user = this.userDAO.getUser("test");
             Assertions.assertNotNull(user);
-            Assertions.assertEquals("test", user.getUsername());
-            Assertions.assertEquals("test", user.getPassword());
-            Assertions.assertEquals("test", user.getEmail());
+            Assertions.assertEquals("test", user.username());
+            Assertions.assertEquals("test", user.password());
+            Assertions.assertEquals("test", user.email());
         } catch (Exception e) {
             e.printStackTrace();
             Assertions.fail("Exception thrown");
