@@ -1,6 +1,7 @@
 package services;
 
 import dataaccess.*;
+import model.AuthToken;
 import requestclasses.CreateGameRequest;
 import resultclasses.CreateGameResult;
 
@@ -14,7 +15,7 @@ public class CreateGameService extends Service {
         super(authDAO, gameDAO, userDAO);
     }
 
-    public CreateGameResult createGame(CreateGameRequest request) {
+    public CreateGameResult createGame(CreateGameRequest request) throws DataAccessException {
         //Check if authentication token or gameID are null
         if (request.getAuthToken() == null || request.getGameName() == null) {
             return new CreateGameResult(400, "Error: bad request");
@@ -26,6 +27,9 @@ public class CreateGameService extends Service {
         } catch (DataAccessException e) {
             return new CreateGameResult(401, "Error: unauthorized");
         }
+
+        String username = authDAO.getUsername(request.getAuthToken());
+        AuthToken authToken = authDAO.getAuthToken(request.getAuthToken());
 
         //Create game
         try {

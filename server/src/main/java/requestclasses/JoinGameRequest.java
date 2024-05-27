@@ -14,7 +14,7 @@ public class JoinGameRequest extends Request {
         this.playerColor = null;
     }
 
-    public JoinGameRequest(AuthToken authToken, Integer gameID, String playerColor) {
+    public JoinGameRequest(String authToken, Integer gameID, String playerColor) {
         super(authToken);
         this.gameID = gameID;
         this.playerColor = playerColor;

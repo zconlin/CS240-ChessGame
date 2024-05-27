@@ -1,6 +1,7 @@
 package services;
 
 import dataaccess.*;
+import model.GamesList;
 import requestclasses.ListGamesRequest;
 import resultclasses.ListGamesResult;
 

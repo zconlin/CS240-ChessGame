@@ -6,7 +6,7 @@ public class ClearDBRequest extends Request {
     public ClearDBRequest() {
     }
 
-    public ClearDBRequest(AuthToken authToken) {
+    public ClearDBRequest(String authToken) {
         super(authToken);
     }
 }

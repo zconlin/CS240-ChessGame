@@ -1,18 +1,19 @@
 package resultclasses;
 
 import model.Game;
+import model.GamesList;
 
 import java.util.Collection;
 
 public class ListGamesResult extends Result {
 
-    private Collection<Game> games;
+    private Game[] games;
 
     public ListGamesResult() {
         super();
     }
 
-    public ListGamesResult(Collection<Game> games) {
+    public ListGamesResult(Game[] games) {
         super(200);
         this.games = games;
     }
@@ -21,11 +22,11 @@ public class ListGamesResult extends Result {
         super(status, message);
     }
 
-    public Collection<Game> getGames() {
+    public Game[] getGames() {
         return games;
     }
 
-    public void setGames(Collection<Game> games) {
+    public void setGames(Game[] games) {
         this.games = games;
     }
 }

@@ -3,6 +3,7 @@ package handler;
 import model.AuthToken;
 import requestclasses.JoinGameRequest;
 import resultclasses.JoinGameResult;
+import server.ServerException;
 import services.JoinGameService;
 import com.google.gson.Gson;
 import spark.Request;
@@ -15,7 +16,7 @@ public class JoinGameHandler extends Handler {
         this.service = service;
     }
 
-    public Object handle(Request request, Response response) {
+    public Object handle(Request request, Response response) throws ServerException {
         JoinGameRequest javaRequestObj = this.getRequestClass(request);
         JoinGameResult javaResultObj = this.service.joinGame(javaRequestObj);
         response.status(javaResultObj.getStatus());
@@ -36,8 +37,7 @@ public class JoinGameHandler extends Handler {
         }
 
         if (request.headers("Authorization") != null) {
-            var token = new AuthToken();
-            token.setAuthToken(request.headers("Authorization"));
+            var token = request.headers("Authorization");
             req.setAuthToken(token);
         }
         return req;

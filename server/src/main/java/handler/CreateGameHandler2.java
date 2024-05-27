@@ -1,5 +1,6 @@
 package handler;
 
+import dataaccess.DataAccessException;
 import model.AuthToken;
 import requestclasses.CreateGameRequest;
 import resultclasses.CreateGameResult;
@@ -16,30 +17,29 @@ public class CreateGameHandler2 extends Handler {
         this.service = service;
     }
 
-    public Object handle(Request request, Response response) {
+    public Object handle(Request request, Response response) throws DataAccessException {
         CreateGameRequest javaCreateGameRequestObj = this.getRequestClass(request);
         CreateGameResult javaCreateGameResultObj = this.service.createGame(javaCreateGameRequestObj);
         response.status(javaCreateGameResultObj.getStatus());
         return (new Gson()).toJson(javaCreateGameResultObj);
     }
 
+    @Override
     public CreateGameRequest getRequestClass(Request request) {
         CreateGameRequest req = null;
         if (request.body() != null) {
             try {
-                req = (CreateGameRequest)(new Gson()).fromJson(request.body(), CreateGameRequest.class);
-            } catch (Exception var4) {
+                req = new com.google.gson.Gson().fromJson(request.body(), CreateGameRequest.class);
+            } catch (Exception e) {
                 req = new CreateGameRequest();
             }
         }
-
         if (req == null) {
             req = new CreateGameRequest();
         }
-
         if (request.headers("Authorization") != null) {
-            AuthToken token = new AuthToken();
-            token.setAuthToken(request.headers("Authorization"));
+            var token = request.headers("Authorization");
+//            token.setAuthToken(request.headers("Authorization"));
             req.setAuthToken(token);
         }
 

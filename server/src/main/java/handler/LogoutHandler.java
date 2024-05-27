@@ -3,6 +3,7 @@ package handler;
 import model.AuthToken;
 import requestclasses.LogoutRequest;
 import resultclasses.LogoutResult;
+import server.ServerException;
 import services.LogoutService;
 import com.google.gson.Gson;
 import spark.Request;
@@ -15,7 +16,7 @@ public class LogoutHandler extends Handler {
         this.service = service;
     }
 
-    public Object handle(Request request, Response response) {
+    public Object handle(Request request, Response response) throws ServerException {
         String authToken = request.headers("authorization");
         LogoutRequest javaLogoutRequestObj = this.getRequestClass(request);
         LogoutResult javaLogoutResultObj = this.service.logout(javaLogoutRequestObj);

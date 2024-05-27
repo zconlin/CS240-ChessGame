@@ -3,6 +3,8 @@ package services;
 import dataaccess.*;
 import requestclasses.LogoutRequest;
 import resultclasses.LogoutResult;
+import server.Server;
+import server.ServerException;
 
 public class LogoutService extends Service {
 
@@ -14,26 +16,26 @@ public class LogoutService extends Service {
         super(authDAO, null, userDAO);
     }
 
-    public LogoutResult logout(LogoutRequest request) {
-        //Check if authentication token is null
+    public LogoutResult logout(LogoutRequest request) throws ServerException {
+        //Check if authentication token or username is null
         if (request.getAuthToken() == null) {
-            return new LogoutResult(400, "Error: bad request");
+            throw new ServerException("Error: bad request", 400);
         }
 
         //Check if authentication token is valid
         try {
             var token = authDAO.checkAuthToken(request.getAuthToken());
         } catch (DataAccessException e) {
-            return new LogoutResult(401, "Error: unauthorized");
+            throw new ServerException("Error: unauthorized", 401);
         } catch (Exception e) {
-            return new LogoutResult(500, "Error: " + e.getMessage());
+            throw new ServerException("Error: " + e.getMessage(), 500);
         }
 
         //Delete auth token
         try {
             authDAO.deleteAuthToken(request.getAuthToken());
         } catch (Exception e) {
-            return new LogoutResult(500, "Error: " + e.getMessage());
+            throw new ServerException("Error: " + e.getMessage(), 500);
         }
 
         return new LogoutResult(200);

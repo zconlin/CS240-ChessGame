@@ -11,7 +11,7 @@ public class CreateGameRequest extends Request {
         this.gameName = null;
     }
 
-    public CreateGameRequest(AuthToken authToken, String gameName) {
+    public CreateGameRequest(String authToken, String gameName) {
         super(authToken);
         this.gameName = gameName;
     }

@@ -8,7 +8,7 @@ public class ListGamesRequest extends Request {
         super();
     }
 
-    public ListGamesRequest(AuthToken authToken) {
+    public ListGamesRequest(String authToken) {
         super(authToken);
     }
 }

@@ -16,6 +16,7 @@ public class ListGamesHandler extends Handler {
     }
 
     public Object handle(Request request, Response response) {
+        String authToken = request.headers("authorization");
         ListGamesRequest javaRequestObj = this.getRequestClass(request);
         ListGamesResult javaResultObj = this.service.listGames(javaRequestObj);
         response.status(javaResultObj.getStatus());
@@ -23,9 +24,8 @@ public class ListGamesHandler extends Handler {
     }
 
     public ListGamesRequest getRequestClass(Request request) {
-        if (request.headers("Authorization") != null) {
-            AuthToken token = new AuthToken();
-            token.setAuthToken(request.headers("Authorization"));
+        if (request.headers("authorization") != null) {
+            String token = request.headers("authorization");
             return new ListGamesRequest(token);
         } else {
             return new ListGamesRequest();
