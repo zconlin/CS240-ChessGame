@@ -16,17 +16,17 @@ public class LogoutHandler extends Handler {
     }
 
     public Object handle(Request request, Response response) {
+        String authToken = request.headers("authorization");
         LogoutRequest javaLogoutRequestObj = this.getRequestClass(request);
         LogoutResult javaLogoutResultObj = this.service.logout(javaLogoutRequestObj);
         response.status(javaLogoutResultObj.getStatus());
-        return (new Gson()).toJson(javaLogoutResultObj);
+        return new Gson().toJson(javaLogoutResultObj.getAuthToken());
     }
 
     public LogoutRequest getRequestClass(Request request) {
         LogoutRequest req = new LogoutRequest();
-        if (request.headers("Authorization") != null) {
-            AuthToken token = new AuthToken();
-            token.setAuthToken(request.headers("Authorization"));
+        if (request.headers("authorization") != null) {
+            String token = request.headers("authorization");
             req.setAuthToken(token);
         }
 

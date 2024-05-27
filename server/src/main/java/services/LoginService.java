@@ -1,9 +1,12 @@
 package services;
 
 import dataaccess.*;
+import model.User;
 import requestclasses.LoginRequest;
 import resultclasses.LoginResult;
 import model.AuthToken;
+import server.Server;
+import server.ServerException;
 
 public class LoginService extends Service {
 
@@ -15,29 +18,30 @@ public class LoginService extends Service {
         super(authDAO, null, userDAO);
     }
 
-    public LoginResult login(LoginRequest request) {
+    public LoginResult login(LoginRequest request) throws ServerException {
         //Check if username or password are null
         if (request.getUsername() == null || request.getPassword() == null) {
-            return new LoginResult(400, "Error: bad request");
+            throw new ServerException("Error: bad request", 400);
         }
 
         //Check if username and password match
+        User user = null;
         try {
-            var user = userDAO.getUser(request.getUsername());
-            if (user == null || !user.getPassword().equals(request.getPassword())) {
-                return new LoginResult(401, "Error: unauthorized");
-            }
+            user = userDAO.getUser(request.getUsername());
         } catch (DataAccessException e) {
-            return new LoginResult(401, "Error: unauthorized");
+            throw new ServerException("Error: unauthorized", 401);
         } catch (Exception e) {
-            return new LoginResult(500, "Error: " + e.getMessage());
+            throw new ServerException("Error: " + e.getMessage(), 500);
+        }
+        if (user == null || !user.getPassword().equals(request.getPassword())) {
+            throw new ServerException("Error: unauthorized", 401);
         }
         //Add auth token
         var token = new AuthToken(request.getUsername());
         try {
             authDAO.addAuthToken(token);
         } catch (Exception e) {
-            return new LoginResult(500, "Error: " + e.getMessage());
+            throw new ServerException("Error: " + e.getMessage(), 500);
         }
         return new LoginResult(token);
     }

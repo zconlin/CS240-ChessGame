@@ -2,6 +2,7 @@ package handler;
 
 import requestclasses.LoginRequest;
 import resultclasses.LoginResult;
+import server.ServerException;
 import services.LoginService;
 import com.google.gson.Gson;
 import spark.Request;
@@ -14,12 +15,12 @@ public class LoginHandler extends Handler {
         this.service = service;
     }
 
-    public Object handle(Request request, Response response) {
+    public Object handle(Request request, Response response) throws ServerException {
         String authToken = request.headers("authorization");
-        LoginRequest javaRequestObj = this.getRequestClass(request);
-        LoginResult javaResultObj = this.service.login(javaRequestObj);
-        response.status(javaResultObj.getStatus());
-        return new Gson().toJson(javaResultObj.getAuthToken());
+        LoginRequest javaLoginRequestObj = this.getRequestClass(request);
+        LoginResult javaLoginResultObj = this.service.login(javaLoginRequestObj);
+        response.status(javaLoginResultObj.getStatus());
+        return new Gson().toJson(javaLoginResultObj.getAuthToken());
     }
 
     public LoginRequest getRequestClass(Request request) {
@@ -29,7 +30,7 @@ public class LoginHandler extends Handler {
         } else {
             try {
                 req = (LoginRequest)(new Gson()).fromJson(request.body(), LoginRequest.class);
-            } catch (Exception var4) {
+            } catch (Exception e) {
                 req = new LoginRequest();
             }
 

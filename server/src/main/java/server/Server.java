@@ -4,6 +4,7 @@ import dataaccess.*;
 import handler.*;
 import services.*;
 import spark.Spark;
+import server.ServerException;
 
 public class Server {
     private final AuthDAO authDAO = new AuthDAO();
@@ -53,6 +54,8 @@ public class Server {
         // Register your endpoints and handle exceptions here.
         defineRoutes();
 
+        Spark.exception(ServerException.class, this::handleException);
+
         Spark.awaitInitialization();
         return Spark.port();
     }
@@ -65,6 +68,11 @@ public class Server {
         Spark.post("/game", this.createGameHandler);
         Spark.get("/game", this.listGamesHandler);
         Spark.put("/game", this.joinGameHandler);
+    }
+
+    private void handleException(ServerException exception, spark.Request request, spark.Response response) {
+        response.status(exception.getStatusCode());
+        response.body(exception.getMessage());
     }
 
     public void stop() {

@@ -4,11 +4,17 @@ import model.AuthToken;
 
 public class LogoutRequest extends Request {
 
-        public LogoutRequest() {
+    private String username;
+
+    public LogoutRequest() {
             super();
         }
 
-        public LogoutRequest(AuthToken authToken) {
+    public LogoutRequest(String authToken) {
             super(authToken);
         }
+
+    public String getUsername() {
+        return username;
+    }
 }
