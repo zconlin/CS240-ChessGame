@@ -15,6 +15,7 @@ public class LoginHandler extends Handler {
         this.service = service;
     }
 
+    @Override
     public Object handle(Request request, Response response) throws ServerException {
         String authToken = request.headers("authorization");
         LoginRequest javaLoginRequestObj = this.getRequestClass(request);

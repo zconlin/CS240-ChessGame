@@ -16,6 +16,7 @@ public class JoinGameHandler extends Handler {
         this.service = service;
     }
 
+    @Override
     public Object handle(Request request, Response response) throws ServerException {
         JoinGameRequest javaRequestObj = this.getRequestClass(request);
         JoinGameResult javaResultObj = this.service.joinGame(javaRequestObj);

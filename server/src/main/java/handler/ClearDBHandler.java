@@ -33,6 +33,7 @@ public class ClearDBHandler extends Handler {
         return req;
     }
 
+    @Override
     public Object handle(Request request, Response response) {
         ClearDBRequest javaClearDBRequestObj = this.getRequestClass(request);
         ClearDBResult javaClearDBResultObj = this.service.clearDB(javaClearDBRequestObj);

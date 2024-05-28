@@ -17,6 +17,7 @@ public class CreateGameHandler2 extends Handler {
         this.service = service;
     }
 
+    @Override
     public Object handle(Request request, Response response) throws DataAccessException {
         CreateGameRequest javaCreateGameRequestObj = this.getRequestClass(request);
         CreateGameResult javaCreateGameResultObj = this.service.createGame(javaCreateGameRequestObj);
@@ -24,7 +25,6 @@ public class CreateGameHandler2 extends Handler {
         return (new Gson()).toJson(javaCreateGameResultObj);
     }
 
-    @Override
     public CreateGameRequest getRequestClass(Request request) {
         CreateGameRequest req = null;
         if (request.body() != null) {

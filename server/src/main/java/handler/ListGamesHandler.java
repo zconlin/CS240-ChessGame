@@ -14,6 +14,7 @@ public class ListGamesHandler extends Handler {
         this.service = service;
     }
 
+    @Override
     public Object handle(Request request, Response response) {
         String authToken = request.headers("authorization");
         ListGamesRequest javaRequestObj = this.getRequestClass(request);
