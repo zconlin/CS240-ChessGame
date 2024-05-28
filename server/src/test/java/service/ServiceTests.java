@@ -1,6 +1,5 @@
 package service;
 
-import chess.ChessGame;
 import dataaccess.*;
 import handler.*;
 import model.AuthToken;
@@ -11,8 +10,6 @@ import server.ServerException;
 import services.*;
 import org.junit.jupiter.api.*;
 import server.Server;
-
-import java.util.ArrayList;
 
 public class ServiceTests{
     // Server
@@ -77,7 +74,7 @@ public class ServiceTests{
     }
 
     @Test
-    public void testClearDBService_positive(){
+    public void testClearDBServicePositive(){
         // Add a token to the database
         var temp = new AuthToken("test", "test");
         try {
@@ -110,96 +107,64 @@ public class ServiceTests{
         Assertions.assertEquals(200, tempResult.getStatus());
     }
 
+    private void RegisterUser(String username, String password, String email, int expectedStatus, String expectedMessage) {
+        var tempRequest = new requestclasses.RegisterRequest(username, password, email);
+        var tempResult = this.registerService.register(tempRequest);
+
+        // Check that tempResult is correct
+        Assertions.assertEquals(expectedStatus, tempResult.getStatus());
+        Assertions.assertEquals(expectedMessage, tempResult.getMessage());
+
+        if (expectedStatus == 200) {
+            Assertions.assertEquals(username, tempResult.getUsername());
+            Assertions.assertNotNull(tempResult.getAuthToken());
+
+            // Check that the user was added to the database
+            try {
+                var user = this.userDAO.getUser(username);
+                Assertions.assertNotNull(user);
+                Assertions.assertEquals(username, user.username());
+                Assertions.assertEquals(password, user.password());
+                Assertions.assertEquals(email, user.email());
+            } catch (Exception e) {
+                e.printStackTrace();
+                Assertions.fail("Exception thrown");
+            }
+
+            // Check that the auth token was added to the database
+            try {
+                var exists = this.authDAO.checkAuthToken(tempResult.getAuthToken().getAuthToken());
+                Assertions.assertTrue(exists);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Assertions.fail("Exception thrown");
+            }
+        } else {
+            Assertions.assertNull(tempResult.getUsername());
+            Assertions.assertNull(tempResult.getAuthToken());
+        }
+    }
 
     @Test
     public void testRegisterServicePositive() {
-        // Register a user
-        var tempRequest = new requestclasses.RegisterRequest("test", "test", "test");
-        var tempResult = this.registerService.register(tempRequest);
-
-        // Check that tempResult is correct
-        Assertions.assertEquals(200, tempResult.getStatus());
-        Assertions.assertEquals("test", tempResult.getUsername());
-        Assertions.assertNotNull(tempResult.getAuthToken());
-
-        // Check that the user was added to the database
-        try {
-            var user = this.userDAO.getUser("test");
-            Assertions.assertNotNull(user);
-            Assertions.assertEquals("test", user.username());
-            Assertions.assertEquals("test", user.password());
-            Assertions.assertEquals("test", user.email());
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assertions.fail("Exception thrown");
-        }
-
-        // Check that the auth token was added to the database
-        try {
-            var exists = this.authDAO.checkAuthToken(tempResult.getAuthToken().getAuthToken());
-            Assertions.assertTrue(exists);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assertions.fail("Exception thrown");
-        }
+        RegisterUser("test", "test", "test", 200, null);
     }
 
     @Test
-    public void testRegisterServiceNegative(){
-        // Register a user
-        var tempRequest = new requestclasses.RegisterRequest("test", "test", "test");
-        var tempResult = this.registerService.register(tempRequest);
-
-        // Check that tempResult is correct
-        Assertions.assertEquals(200, tempResult.getStatus());
-        Assertions.assertEquals("test", tempResult.getUsername());
-        Assertions.assertNotNull(tempResult.getAuthToken());
-
-        // Check that the user was added to the database
-        try {
-            var user = this.userDAO.getUser("test");
-            Assertions.assertNotNull(user);
-            Assertions.assertEquals("test", user.username());
-            Assertions.assertEquals("test", user.password());
-            Assertions.assertEquals("test", user.email());
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assertions.fail("Exception thrown");
-        }
+    public void testRegisterServiceNegative() {
+        // Register the user successfully
+        RegisterUser("test", "test", "test", 200, null);
 
         // Try adding the same user again
-        tempRequest = new requestclasses.RegisterRequest("test", "test", "test");
-        tempResult = this.registerService.register(tempRequest);
-
-        // Check that tempResult is correct
-        Assertions.assertEquals(403, tempResult.getStatus());
-        Assertions.assertEquals("Error: already taken", tempResult.getMessage());
-        Assertions.assertNull(tempResult.getUsername());
-        Assertions.assertNull(tempResult.getAuthToken());
+        RegisterUser("test", "test", "test", 403, "Error: already taken");
     }
+
+
 
     @Test
     public void testLoginServicePositive() throws ServerException {
         // Register a user
-        var tempRequest = new requestclasses.RegisterRequest("test", "test", "test");
-        var tempResult = this.registerService.register(tempRequest);
-
-        // Check that tempResult is correct
-        Assertions.assertEquals(200, tempResult.getStatus());
-        Assertions.assertEquals("test", tempResult.getUsername());
-        Assertions.assertNotNull(tempResult.getAuthToken());
-
-        // Check that the user was added to the database
-        try {
-            var user = this.userDAO.getUser("test");
-            Assertions.assertNotNull(user);
-            Assertions.assertEquals("test", user.username());
-            Assertions.assertEquals("test", user.password());
-            Assertions.assertEquals("test", user.email());
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assertions.fail("Exception thrown");
-        }
+        RegisterUser("test", "test", "test", 200, null);
 
         // Login the user
         var loginRequest = new requestclasses.LoginRequest("test", "test");
@@ -222,20 +187,7 @@ public class ServiceTests{
     @Test
     public void testLoginServiceNegative() throws ServerException {
         // Register a user
-        var tempRequest = new requestclasses.RegisterRequest("test", "test", "test");
-        var tempResult = this.registerService.register(tempRequest);
-
-        // Check that the user was added to the database
-        try {
-            var user = this.userDAO.getUser("test");
-            Assertions.assertNotNull(user);
-            Assertions.assertEquals("test", user.username());
-            Assertions.assertEquals("test", user.password());
-            Assertions.assertEquals("test", user.email());
-        } catch (Exception e) {
-            e.printStackTrace();
-            Assertions.fail("Exception thrown");
-        }
+        RegisterUser("test", "test", "test", 200, null);
 
         // Login the user
         var loginRequest = new requestclasses.LoginRequest("test", "wrong");
