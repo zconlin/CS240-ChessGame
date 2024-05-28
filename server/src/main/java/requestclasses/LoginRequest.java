@@ -28,8 +28,4 @@ public class LoginRequest extends Request {
     public String getPassword() {
         return password;
     }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
