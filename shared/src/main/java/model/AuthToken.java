@@ -4,8 +4,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class AuthToken {
-    private String authToken;
-    private String username;
+    private final String authToken;
+    private final String username;
 
     public AuthToken() {
         this.authToken = null;
