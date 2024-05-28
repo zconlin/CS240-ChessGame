@@ -107,7 +107,7 @@ public class ServiceTests{
         Assertions.assertEquals(200, tempResult.getStatus());
     }
 
-    private void RegisterUser(String username, String password, String email, int expectedStatus, String expectedMessage) {
+    private void registerUser(String username, String password, String email, int expectedStatus, String expectedMessage) {
         var tempRequest = new requestclasses.RegisterRequest(username, password, email);
         var tempResult = this.registerService.register(tempRequest);
 
@@ -147,16 +147,16 @@ public class ServiceTests{
 
     @Test
     public void testRegisterServicePositive() {
-        RegisterUser("test", "test", "test", 200, null);
+        registerUser("test", "test", "test", 200, null);
     }
 
     @Test
     public void testRegisterServiceNegative() {
         // Register the user successfully
-        RegisterUser("test", "test", "test", 200, null);
+        registerUser("test", "test", "test", 200, null);
 
         // Try adding the same user again
-        RegisterUser("test", "test", "test", 403, "Error: already taken");
+        registerUser("test", "test", "test", 403, "Error: already taken");
     }
 
 
@@ -164,7 +164,7 @@ public class ServiceTests{
     @Test
     public void testLoginServicePositive() throws ServerException {
         // Register a user
-        RegisterUser("test", "test", "test", 200, null);
+        registerUser("test", "test", "test", 200, null);
 
         // Login the user
         var loginRequest = new requestclasses.LoginRequest("test", "test");
@@ -187,7 +187,7 @@ public class ServiceTests{
     @Test
     public void testLoginServiceNegative() throws ServerException {
         // Register a user
-        RegisterUser("test", "test", "test", 200, null);
+        registerUser("test", "test", "test", 200, null);
 
         // Login the user
         var loginRequest = new requestclasses.LoginRequest("test", "wrong");
