@@ -25,8 +25,4 @@ public class ListGamesResult extends Result {
     public Game[] getGames() {
         return games;
     }
-
-    public void setGames(Game[] games) {
-        this.games = games;
-    }
 }

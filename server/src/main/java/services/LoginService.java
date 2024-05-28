@@ -5,7 +5,6 @@ import model.User;
 import requestclasses.LoginRequest;
 import resultclasses.LoginResult;
 import model.AuthToken;
-import server.Server;
 import server.ServerException;
 
 public class LoginService extends Service {

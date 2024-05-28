@@ -29,28 +29,12 @@ public class UserDAO extends DataAccess {
         return users.get(username);
     }
 
-    public User updateUser(User user) throws DataAccessException {
-        if (!userExists(user)) {
-            throw new DataAccessException("Error: Username does not exist");
-        }
-
-        return users.put(user.username(), user);
-    }
-
     public boolean userExists(User user) {
         return users.containsKey(user.username());
     }
 
     public void clear() throws DataAccessException {
         users.clear();
-    }
-
-    public void deleteUser(User user) throws DataAccessException {
-        if (!userExists(user)) {
-            throw new DataAccessException("Error: Username does not exist");
-        }
-
-        users.remove(user.username());
     }
 
 }

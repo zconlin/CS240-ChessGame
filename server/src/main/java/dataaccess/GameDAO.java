@@ -1,11 +1,8 @@
 package dataaccess;
 
 import model.Game;
-import model.GamesList;
-import resultclasses.ListGamesResult;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class GameDAO extends DataAccess {
 
@@ -40,19 +37,8 @@ public class GameDAO extends DataAccess {
         return games.put(game.getGameID(), game);
     }
 
-    public void claimSpot(String gameID, String playerID) throws DataAccessException {
-
-    }
-
-    public void claimSpot(int id, String gameID, String playerID) throws DataAccessException {
-    }
-
     public void clear(){
         games.clear();
-    }
-
-    public void deleteGame(Game game) throws DataAccessException {
-        games.remove(game.getGameID());
     }
 
 }

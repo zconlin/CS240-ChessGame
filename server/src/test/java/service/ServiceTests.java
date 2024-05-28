@@ -1,18 +1,24 @@
 package service;
 
+import chess.ChessGame;
 import dataaccess.*;
 import handler.*;
+import model.AuthToken;
+import model.User;
+import requestclasses.ClearDBRequest;
 import requestclasses.RegisterRequest;
 import server.ServerException;
 import services.*;
 import org.junit.jupiter.api.*;
 import server.Server;
 
+import java.util.ArrayList;
+
 public class ServiceTests{
     // Server
     private Server server;
 
-    // dataaccess
+    // DAOs
     private AuthDAO authDAO;
     private GameDAO gameDAO;
     private UserDAO userDAO;
@@ -70,44 +76,40 @@ public class ServiceTests{
         this.server = new Server();
     }
 
-//    @Test
-//    public void testClearDBService_positive(){
-//        // Add a token to the database
-//        var temp = new AuthToken("test", "test");
-//        try {
-//            this.authDAO.addAuthToken(temp);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        // Add a user to the database
-//        var tempUser = new User("test", "test", "test");
-//        try {
-//            this.userDAO.addUser(tempUser);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-////        // Add a game to the database
-////        var tempGame = new model.Game(123, "test", "test", new ArrayList<>(), "test", new ChessGame());
-////        try {
-////            this.gameDAO.addGame(tempGame);
-////        } catch (Exception e) {
-////            e.printStackTrace();
-////        }
-//
-//        // Clear the database
-//        var tempRequest = new requestclasses.ClearDBRequest();
-//        var tempResult = this.clearDBService.clearDB(tempRequest);
-//
-//        // Check that tempResult is correct
-//        Assertions.assertEquals(200, tempResult.getStatus());
-//
-//        // Check that the database is empty
-//        Assertions.assertThrows(DataAccessException.class, () -> this.authDAO.checkAuthToken(temp));
-//        Assertions.assertThrows(DataAccessException.class, () -> this.userDAO.getUser(tempuser.username()));
-////        Assertions.assertThrows(DataAccessException.class, () -> this.gameDAO.getGame(tempGame.getGameID()));
-//    }
+    @Test
+    public void testClearDBService_positive(){
+        // Add a token to the database
+        var temp = new AuthToken("test", "test");
+        try {
+            this.authDAO.addAuthToken(temp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Add a user to the database
+        var tempUser = new User("test", "test", "test");
+        try {
+            this.userDAO.addUser(tempUser);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Add a game to the database
+        var tempGame = new model.Game();
+        try {
+            this.gameDAO.addGame(tempGame);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Clear the database
+        var tempRequest = new ClearDBRequest();
+        var tempResult = this.clearDBService.clearDB(tempRequest);
+
+        // Check that tempResult is correct
+        Assertions.assertEquals(200, tempResult.getStatus());
+    }
+
 
     @Test
     public void testRegisterServicePositive() {

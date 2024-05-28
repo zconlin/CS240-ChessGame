@@ -74,15 +74,5 @@ public class JoinGameService extends Service {
         } catch (ServerException e) {
             throw e;
         }
-
-        // Join game
-//        try {
-//            gameDAO.claimSpot(request.getGameID(), username, request.getPlayerColor());
-//            return new JoinGameResult(200);
-//        } catch (DataAccessException e) {
-//            return new JoinGameResult(403, "Error: already taken");
-//        } catch (Exception e) {
-//            return new JoinGameResult(500, "Error: " + e.getMessage());
-//        }
     }
 }

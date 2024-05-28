@@ -1,6 +1,5 @@
 package handler;
 
-import model.AuthToken;
 import requestclasses.ListGamesRequest;
 import resultclasses.ListGamesResult;
 import services.ListGamesService;
