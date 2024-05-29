@@ -13,6 +13,7 @@
       <schema-mapping>
         <introspection-scope>
           <node kind="schema">
+            <name qname="chess" />
             <name qname="@" />
             <name qname="chessdb" />
           </node>

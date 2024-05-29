@@ -4,6 +4,7 @@ import dataaccess.DataAccessException;
 import model.AuthToken;
 import requestclasses.CreateGameRequest;
 import resultclasses.CreateGameResult;
+import server.ServerException;
 import services.CreateGameService;
 import com.google.gson.Gson;
 import spark.Request;
@@ -18,7 +19,7 @@ public class CreateGameHandler2 extends Handler {
     }
 
     @Override
-    public Object handle(Request request, Response response) throws DataAccessException {
+    public Object handle(Request request, Response response) throws DataAccessException, ServerException {
         CreateGameRequest javaCreateGameRequestObj = this.getRequestClass(request);
         CreateGameResult javaCreateGameResultObj = this.service.createGame(javaCreateGameRequestObj);
         response.status(javaCreateGameResultObj.getStatus());
