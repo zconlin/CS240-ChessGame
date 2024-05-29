@@ -1,5 +1,8 @@
 package chess;
 
+import com.google.gson.*;
+
+import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -277,6 +280,13 @@ public class ChessPiece {
             case ROOK -> checkRook(board, myPosition);
             case PAWN -> checkPawn(board, myPosition);
         };
+    }
+
+    public static class ChessPieceTA implements JsonDeserializer<ChessPiece> {
+
+        public ChessPiece deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+            return new Gson().fromJson(jsonElement, ChessPiece.class);
+        }
     }
 
     @Override

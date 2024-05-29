@@ -1,5 +1,8 @@
 package chess;
 
+import com.google.gson.*;
+
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -251,6 +254,21 @@ public class ChessGame {
      */
     public ChessBoard getBoard() {
         return gameBoard;
+    }
+
+    public static String toJSON(ChessGame game) {
+        var gson = new GsonBuilder().create();
+        return gson.toJson(game);
+    }
+
+    public static class ChessGameTA implements JsonDeserializer<ChessGame> {
+
+        public ChessGame deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+            var gson = new GsonBuilder()
+                    .registerTypeAdapter(chess.ChessBoard.class, new ChessBoard.ChessBoardTA())
+                    .create();
+            return gson.fromJson(jsonElement, ChessGame.class);
+        }
     }
 
     @Override

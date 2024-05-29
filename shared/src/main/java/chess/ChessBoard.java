@@ -1,7 +1,9 @@
 package chess;
 
+import com.google.gson.*;
+
+import java.lang.reflect.Type;
 import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * A chessboard that can hold and rearrange chess pieces.
@@ -96,6 +98,16 @@ public class ChessBoard {
     public void movePiece(ChessPosition startPosition, ChessPosition nextPosition, ChessPiece piece){
         board[nextPosition.getRow()-1][nextPosition.getColumn()-1] = piece;
         board[startPosition.getRow()-1][startPosition.getColumn()-1] = null;
+    }
+
+    public static class ChessBoardTA implements JsonDeserializer<ChessBoard> {
+
+        public ChessBoard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+            var gson = new GsonBuilder()
+                    .registerTypeAdapter(ChessPiece.class, new ChessPiece.ChessPieceTA())
+                    .create();
+            return gson.fromJson(jsonElement, ChessBoard.class);
+        }
     }
 
     @Override
