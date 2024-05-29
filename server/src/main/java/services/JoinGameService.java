@@ -14,8 +14,8 @@ public class JoinGameService extends Service {
         super();
     }
 
-    public JoinGameService(AuthDAO authDAO, GameDAO gameDAO, UserDAO userDAO) {
-        super(authDAO, gameDAO, userDAO);
+    public JoinGameService(AuthSQL authSQL, GameSQL gameSQL, UserSQL userSQL) {
+        super(authSQL, gameSQL, userSQL);
     }
 
     public JoinGameResult joinGame(JoinGameRequest request) throws ServerException {
@@ -26,7 +26,7 @@ public class JoinGameService extends Service {
 
         // Check if authentication token is valid
         try {
-            authDAO.checkAuthToken(request.getAuthToken());
+            authSQL.checkAuthToken(request.getAuthToken());
         } catch (Exception e) {
             return new JoinGameResult(401, "Error: unauthorized");
         }
@@ -35,7 +35,7 @@ public class JoinGameService extends Service {
 
         // Check if gameID exists
         try {
-            game = gameDAO.getGame(String.valueOf(request.getGameID()));
+            game = gameSQL.getGame(String.valueOf(request.getGameID()));
         } catch (Exception e) {
             return new JoinGameResult(400, "Error: game does not exist");
         }
@@ -43,7 +43,7 @@ public class JoinGameService extends Service {
         // Discover Username
         String username;
         try {
-            username = authDAO.getUsername(request.getAuthToken());
+            username = authSQL.getUsername(request.getAuthToken());
         } catch (Exception e) {
             throw new ServerException("Error: " + e.getMessage(), 500);
         }
@@ -53,7 +53,7 @@ public class JoinGameService extends Service {
             if (Objects.equals(request.getPlayerColor(), "WHITE")) {
                 if (game.getWhiteUsername() == null) {
                     game.setWhiteUsername(username);
-                    gameDAO.updateGame(game);
+                    gameSQL.updateGame(game);
                     return new JoinGameResult(200);
                 } else {
                     throw new ServerException("Error: already taken", 403);
@@ -61,7 +61,7 @@ public class JoinGameService extends Service {
             } else if (Objects.equals(request.getPlayerColor(), "BLACK")) {
                 if (game.getBlackUsername() == null) {
                     game.setBlackUsername(username);
-                    gameDAO.updateGame(game);
+                    gameSQL.updateGame(game);
                     return new JoinGameResult(200);
                 } else {
                     throw new ServerException("Error: already taken", 403);

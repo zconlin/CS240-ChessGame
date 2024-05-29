@@ -1,7 +1,6 @@
 package services;
 
 import dataaccess.*;
-import model.GamesList;
 import requestclasses.ListGamesRequest;
 import resultclasses.ListGamesResult;
 
@@ -11,8 +10,8 @@ public class ListGamesService extends Service {
         super();
     }
 
-    public ListGamesService(AuthDAO authDAO, GameDAO gameDAO, UserDAO userDAO) {
-        super(authDAO, gameDAO, userDAO);
+    public ListGamesService(AuthSQL authSQL, GameSQL gameSQL, UserSQL userSQL) {
+        super(authSQL, gameSQL, userSQL);
     }
 
     public ListGamesResult listGames(ListGamesRequest request) {
@@ -23,14 +22,14 @@ public class ListGamesService extends Service {
 
         //Check if authentication token is valid
         try {
-            var token = authDAO.checkAuthToken(request.getAuthToken());
+            var token = authSQL.checkAuthToken(request.getAuthToken());
         } catch (Exception e) {
             return new ListGamesResult(401, "Error: unauthorized");
         }
 
         //List all active games
         try {
-            var games = gameDAO.getAllGames();
+            var games = gameSQL.getAllGames();
             return new ListGamesResult(games);
         } catch (Exception e) {
             return new ListGamesResult(500, "Error: " + e.getMessage());

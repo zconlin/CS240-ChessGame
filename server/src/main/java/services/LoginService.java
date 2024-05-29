@@ -13,8 +13,8 @@ public class LoginService extends Service {
         super();
     }
 
-    public LoginService(AuthDAO authDAO, UserDAO userDAO) {
-        super(authDAO, null, userDAO);
+    public LoginService(AuthSQL authSQL, UserSQL userSQL) {
+        super(authSQL, null, userSQL);
     }
 
     public LoginResult login(LoginRequest request) throws ServerException {
@@ -26,7 +26,7 @@ public class LoginService extends Service {
         //Check if username and password match
         User user = null;
         try {
-            user = userDAO.getUser(request.getUsername());
+            user = userSQL.getUser(request.getUsername());
         } catch (DataAccessException e) {
             throw new ServerException("Error: unauthorized", 401);
         } catch (Exception e) {
@@ -38,7 +38,7 @@ public class LoginService extends Service {
         //Add auth token
         var token = new AuthToken(request.getUsername());
         try {
-            authDAO.addAuthToken(token);
+            authSQL.addAuthToken(token);
         } catch (Exception e) {
             throw new ServerException("Error: " + e.getMessage(), 500);
         }

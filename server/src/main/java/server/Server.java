@@ -4,12 +4,11 @@ import dataaccess.*;
 import handler.*;
 import services.*;
 import spark.Spark;
-import server.ServerException;
 
 public class Server {
-    private final AuthDAO authDAO = new AuthDAO();
-    private final GameDAO gameDAO = new GameDAO();
-    private final UserDAO userDAO = new UserDAO();
+    private final AuthSQL authSQL = new AuthSQL();
+    private final GameSQL gameSQL = new GameSQL();
+    private final UserSQL userSQL = new UserSQL();
     private final LoginService loginService;
     private final ClearDBService clearDBService;
     private final RegisterService registerService;
@@ -30,13 +29,13 @@ public class Server {
     }
 
     public Server() {
-        this.loginService = new LoginService(this.authDAO, this.userDAO);
-        this.clearDBService = new ClearDBService(this.authDAO, this.gameDAO, this.userDAO);
-        this.createGameService = new CreateGameService(this.authDAO, this.gameDAO, this.userDAO);
-        this.joinGameService = new JoinGameService(this.authDAO, this.gameDAO, this.userDAO);
-        this.listGamesService = new ListGamesService(this.authDAO, this.gameDAO, this.userDAO);
-        this.registerService = new RegisterService(this.authDAO, this.userDAO);
-        this.logoutService = new LogoutService(this.authDAO, this.userDAO);
+        this.loginService = new LoginService(this.authSQL, this.userSQL);
+        this.clearDBService = new ClearDBService(this.authSQL, this.gameSQL, this.userSQL);
+        this.createGameService = new CreateGameService(this.authSQL, this.gameSQL, this.userSQL);
+        this.joinGameService = new JoinGameService(this.authSQL, this.gameSQL, this.userSQL);
+        this.listGamesService = new ListGamesService(this.authSQL, this.gameSQL, this.userSQL);
+        this.registerService = new RegisterService(this.authSQL, this.userSQL);
+        this.logoutService = new LogoutService(this.authSQL, this.userSQL);
         this.loginHandler = new LoginHandler(this.loginService);
         this.clearDBHandler = new ClearDBHandler(this.clearDBService);
         this.registerHandler = new RegisterHandler(this.registerService);

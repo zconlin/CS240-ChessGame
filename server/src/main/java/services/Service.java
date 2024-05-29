@@ -1,24 +1,24 @@
 package services;
 
-import dataaccess.AuthDAO;
-import dataaccess.GameDAO;
-import dataaccess.UserDAO;
+import dataaccess.AuthSQL;
+import dataaccess.GameSQL;
+import dataaccess.UserSQL;
 
 public class Service {
 
-    protected AuthDAO authDAO;
-    protected GameDAO gameDAO;
-    protected UserDAO userDAO;
+    protected AuthSQL authSQL;
+    protected GameSQL gameSQL;
+    protected UserSQL userSQL;
 
     public Service() {
-        authDAO = new AuthDAO();
-        gameDAO = new GameDAO();
-        userDAO = new UserDAO();
+        authSQL = new AuthSQL();
+        gameSQL = new GameSQL();
+        userSQL = new UserSQL();
     }
 
-    public Service(AuthDAO authDAO, GameDAO gameDAO, UserDAO userDAO) {
-        this.authDAO = authDAO;
-        this.gameDAO = gameDAO;
-        this.userDAO = userDAO;
+    public Service(AuthSQL authSQL, GameSQL gameSQL, UserSQL userSQL) {
+        this.authSQL = authSQL;
+        this.gameSQL = gameSQL;
+        this.userSQL = userSQL;
     }
 }

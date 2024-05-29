@@ -4,6 +4,7 @@ import model.Game;
 import model.GamesList;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 public class ListGamesResult extends Result {
 
@@ -21,6 +22,9 @@ public class ListGamesResult extends Result {
     public ListGamesResult(int status, String message) {
         super(status, message);
     }
+
+//    public ListGamesResult(HashSet<Game> games) {
+//    }
 
     public Game[] getGames() {
         return games;

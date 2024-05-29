@@ -8,15 +8,15 @@ public class ClearDBService extends Service {
     public ClearDBService() {
     }
 
-    public ClearDBService(AuthDAO authDAO, GameDAO gameDAO, UserDAO userDAO) {
-        super(authDAO, gameDAO, userDAO);
+    public ClearDBService(AuthSQL authSQL, GameSQL gameSQL, UserSQL userSQL) {
+        super(authSQL, gameSQL, userSQL);
     }
 
     public ClearDBResult clearDB(ClearDBRequest request) {
         try {
-            this.authDAO.clear();
-            this.gameDAO.clear();
-            this.userDAO.clear();
+            this.authSQL.clear();
+            this.gameSQL.clear();
+            this.userSQL.clear();
         } catch (Exception e) {
             return new ClearDBResult(500, "Error: " + e.getMessage());
         }

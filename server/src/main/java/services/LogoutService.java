@@ -3,7 +3,6 @@ package services;
 import dataaccess.*;
 import requestclasses.LogoutRequest;
 import resultclasses.LogoutResult;
-import server.Server;
 import server.ServerException;
 
 public class LogoutService extends Service {
@@ -12,8 +11,8 @@ public class LogoutService extends Service {
         super();
     }
 
-    public LogoutService(AuthDAO authDAO, UserDAO userDAO) {
-        super(authDAO, null, userDAO);
+    public LogoutService(AuthSQL authSQL, UserSQL userSQL) {
+        super(authSQL, null, userSQL);
     }
 
     public LogoutResult logout(LogoutRequest request) throws ServerException {
@@ -24,7 +23,7 @@ public class LogoutService extends Service {
 
         //Check if authentication token is valid
         try {
-            var token = authDAO.checkAuthToken(request.getAuthToken());
+            var token = authSQL.checkAuthToken(request.getAuthToken());
         } catch (DataAccessException e) {
             throw new ServerException("Error: unauthorized", 401);
         } catch (Exception e) {
@@ -33,7 +32,7 @@ public class LogoutService extends Service {
 
         //Delete auth token
         try {
-            authDAO.deleteAuthToken(request.getAuthToken());
+            authSQL.deleteAuthToken(request.getAuthToken());
         } catch (Exception e) {
             throw new ServerException("Error: " + e.getMessage(), 500);
         }
