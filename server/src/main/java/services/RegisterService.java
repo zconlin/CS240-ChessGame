@@ -12,8 +12,8 @@ public class RegisterService extends Service {
         super();
     }
 
-    public RegisterService(AuthDAO authDAO, UserDAO userDAO) {
-        super(authDAO, null, userDAO);
+    public RegisterService(AuthSQL authSQL, UserSQL userSQL) {
+        super(authSQL, null, userSQL);
     }
 
     public RegisterResult register(RegisterRequest request) {
@@ -25,7 +25,7 @@ public class RegisterService extends Service {
         //Check if username is already taken
         try {
             var user = new User(request.getUsername(), request.getPassword(), request.getEmail());
-            userDAO.addUser(user);
+            userSQL.addUser(user);
         } catch (DataAccessException e) {
             return new RegisterResult(403, "Error: already taken");
         } catch (Exception e) {
@@ -35,7 +35,7 @@ public class RegisterService extends Service {
         //Add auth token
         var token = new AuthToken(request.getUsername());
         try {
-            authDAO.addAuthToken(token);
+            authSQL.addAuthToken(token);
         } catch (Exception e) {
             return new RegisterResult(500, "Error: " + e.getMessage());
         }
