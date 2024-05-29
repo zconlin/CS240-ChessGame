@@ -2,11 +2,15 @@ package model;
 
 import chess.ChessGame;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 public class Game {
 
     private String gameID;
     private String whiteUsername;
     private String blackUsername;
+    private HashSet<String> spectators;
     private String gameName;
     private ChessGame game;
 
@@ -14,14 +18,16 @@ public class Game {
         this.gameID = null;
         this.whiteUsername = null;
         this.blackUsername = null;
+        this.spectators = null;
         this.gameName = null;
         this.game = null;
     }
 
-    public Game(String gameID, String whiteUsername, String blackUsername, String gameName, ChessGame game) {
+    public Game(String gameID, String whiteUsername, String blackUsername, Collection<String> spectators, String gameName, ChessGame game) {
         this.gameID = gameID;
         this.whiteUsername = whiteUsername;
         this.blackUsername = blackUsername;
+        this.spectators = new HashSet<>(spectators);
         this.gameName = gameName;
         this.game = game;
     }
@@ -48,6 +54,26 @@ public class Game {
 
     public void setBlackUsername(String blackUsername) {
         this.blackUsername = blackUsername;
+    }
+
+    public HashSet<String> getSpectators() {
+        return spectators;
+    }
+
+    public void setSpectators(HashSet<String> spectators) {
+        this.spectators = spectators;
+    }
+
+    public void addSpectator(String observer) {
+        this.spectators.add(observer);
+    }
+
+    public void removeSpectator(String observer) {
+        this.spectators.remove(observer);
+    }
+
+    public boolean isSpectator(String observer) {
+        return this.spectators.contains(observer);
     }
 
     public String getGameName() {
