@@ -67,4 +67,51 @@ public class DatabaseManager {
             throw new DataAccessException(e.getMessage());
         }
     }
+
+    public void closeConnection(Connection conn) throws DataAccessException {
+        if(conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                throw new DataAccessException(e.getMessage());
+            }
+        }
+    }
+
+    public void clear() throws DataAccessException {
+        //Delete each table
+
+        //Auth
+        var conn = getConnection();
+        var sql = "DELETE FROM chessdb.auth;";
+        try (var stmt = conn.prepareStatement(sql)) {
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException(e.getMessage());
+        } finally {
+            this.closeConnection(conn);
+        }
+
+        //Game
+        conn = getConnection();
+        sql = "DELETE FROM chessdb.games;";
+        try (var stmt = conn.prepareStatement(sql)) {
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException(e.getMessage());
+        } finally {
+            this.closeConnection(conn);
+        }
+
+        //User
+        conn = getConnection();
+        sql = "DELETE FROM chessdb.users;";
+        try (var stmt = conn.prepareStatement(sql)) {
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException(e.getMessage());
+        } finally {
+            this.closeConnection(conn);
+        }
+    }
 }
