@@ -16,18 +16,18 @@ public class Game {
 
     public Game() {
         this.gameID = null;
-        this.whiteUsername = null;
-        this.blackUsername = null;
-        this.spectators = null;
-        this.gameName = null;
-        this.game = null;
+        this.whiteUsername = "";
+        this.blackUsername = "";
+        this.spectators = new HashSet<>();
+        this.gameName = "";
+        this.game = new ChessGame();
     }
 
-    public Game(String gameID, String whiteUsername, String blackUsername, Collection<String> spectators, String gameName, ChessGame game) {
+    public Game(String gameID, String whiteUsername, String blackUsername, HashSet<String> spectators, String gameName, ChessGame game) {
         this.gameID = gameID;
         this.whiteUsername = whiteUsername;
         this.blackUsername = blackUsername;
-        this.spectators = new HashSet<>(spectators);
+        this.spectators = spectators;
         this.gameName = gameName;
         this.game = game;
     }

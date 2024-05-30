@@ -51,7 +51,7 @@ public class JoinGameService extends Service {
         // Join game
         try {
             if (Objects.equals(request.getPlayerColor(), "WHITE")) {
-                if (game.getWhiteUsername() == null) {
+                if (game.getWhiteUsername().isEmpty()) {
                     game.setWhiteUsername(username);
                     gameSQL.updateGame(game);
                     return new JoinGameResult(200);
@@ -59,7 +59,7 @@ public class JoinGameService extends Service {
                     throw new ServerException("Error: already taken", 403);
                 }
             } else if (Objects.equals(request.getPlayerColor(), "BLACK")) {
-                if (game.getBlackUsername() == null) {
+                if (game.getBlackUsername().isEmpty()) {
                     game.setBlackUsername(username);
                     gameSQL.updateGame(game);
                     return new JoinGameResult(200);

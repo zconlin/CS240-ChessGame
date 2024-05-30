@@ -36,8 +36,7 @@ public class CreateGameService extends Service {
         try {
             var game = new model.Game();
             game.setGameName(request.getGameName());
-            gameSQL.addGame(game);
-            return new CreateGameResult(game.getGameID());
+            return new CreateGameResult(Integer.toString(gameSQL.addGame(game)));
         } catch (Exception e) {
             return new CreateGameResult(500, "Error: " + e.getMessage());
         }
