@@ -7,6 +7,9 @@ import java.util.HashMap;
 
 public class UserDAO extends DataAccess {
 
+    // This was for development purposes to test API endpoints with an in-memory database.
+    // The database has been shifted to use MySQL, so this file is deprecated and no longer used.
+
     private HashMap<String, User> users = new HashMap<>();
 
     public UserDAO() {
