@@ -71,11 +71,6 @@ public class AuthSQL extends DataAccess {
         }
     }
 
-    public AuthToken getAuthToken(String authToken) throws DataAccessException {
-
-        return null;
-    }
-
     public String getUsername(String authToken) throws DataAccessException, ServerException {
         try (var conn = DatabaseManager.getConnection()) {
 

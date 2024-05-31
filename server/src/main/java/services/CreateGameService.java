@@ -29,9 +29,6 @@ public class CreateGameService extends Service {
             return new CreateGameResult(401, "Error: unauthorized");
         }
 
-        String username = authSQL.getUsername(request.getAuthToken());
-        AuthToken authToken = authSQL.getAuthToken(request.getAuthToken());
-
         //Create game
         try {
             var game = new model.Game();
