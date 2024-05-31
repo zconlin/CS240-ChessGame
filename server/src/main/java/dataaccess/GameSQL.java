@@ -160,16 +160,30 @@ public class GameSQL extends DataAccess {
 
     public void clear() throws ServerException {
         try (var conn = DatabaseManager.getConnection()) {
-
-            var sql = "DELETE FROM chess.game;";
-            try (var stmt = conn.prepareStatement(sql)) {
-                stmt.executeUpdate();
+            String dropSql = "DROP TABLE IF EXISTS chess.game;";
+            try (var dropStmt = conn.prepareStatement(dropSql)) {
+                dropStmt.executeUpdate();
             } catch (SQLException e) {
-                throw new DataAccessException("Error: " + e.getMessage());
+                throw new DataAccessException("Error dropping table: " + e.getMessage());
+            }
+
+            String createSql = "CREATE TABLE chess.game (" +
+                    "gameID INT AUTO_INCREMENT PRIMARY KEY," +
+                    "whiteUsername VARCHAR(24)," +
+                    "blackUsername VARCHAR(24)," +
+                    "spectators TEXT," +
+                    "gameName VARCHAR(24)," +
+                    "game TEXT" +
+                    ");";
+            try (var createStmt = conn.prepareStatement(createSql)) {
+                createStmt.executeUpdate();
+            } catch (SQLException e) {
+                throw new DataAccessException("Error creating table: " + e.getMessage());
             }
         } catch (Exception e) {
-            throw new ServerException("Unable to read data", 500);
+            throw new ServerException("Unable to clear data", 500);
         }
     }
+
 
 }
