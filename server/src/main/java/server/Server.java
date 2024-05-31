@@ -43,8 +43,6 @@ public class Server {
         this.joinGameHandler = new JoinGameHandler(this.joinGameService);
         this.listGamesHandler = new ListGamesHandler(this.listGamesService);
         this.logoutHandler = new LogoutHandler(this.logoutService);
-
-
     }
 
     public int run(int desiredPort) {
