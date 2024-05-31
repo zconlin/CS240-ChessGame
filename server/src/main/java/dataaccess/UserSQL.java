@@ -11,8 +11,20 @@ import java.sql.SQLException;
 
 public class UserSQL extends DataAccess {
 
-    public UserSQL() {
+    public UserSQL() throws DataAccessException {
         super();
+
+        String[] createStatements = {
+            """
+            CREATE TABLE IF NOT EXISTS auth (
+            `username` VARCHAR(24) NOT NULL,
+            `password` VARCHAR(72) NOT NULL,
+            `email` VARCHAR(36) NULL,
+            PRIMARY KEY (`username`)
+            );
+            """
+        };
+        ConfigureDatabase.configureDatabase(createStatements);
     }
 
     public void addUser(User user) throws DataAccessException, ServerException {

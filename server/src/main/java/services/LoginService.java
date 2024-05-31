@@ -10,7 +10,7 @@ import server.ServerException;
 
 public class LoginService extends Service {
 
-    public LoginService() {
+    public LoginService() throws DataAccessException {
         super();
     }
 

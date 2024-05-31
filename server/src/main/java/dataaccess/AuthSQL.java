@@ -7,8 +7,19 @@ import java.sql.SQLException;
 
 public class AuthSQL extends DataAccess {
 
-    public AuthSQL() {
+    public AuthSQL() throws DataAccessException {
         super();
+
+        String[] createStatements = {
+            """
+            CREATE TABLE IF NOT EXISTS auth (
+            `authToken` VARCHAR(36) NOT NULL,
+            `username` VARCHAR(24) NOT NULL,
+            PRIMARY KEY (`authToken`)
+            );
+            """
+        };
+        ConfigureDatabase.configureDatabase(createStatements);
     }
 
     public void addAuthToken(AuthToken authToken) throws DataAccessException, ServerException {

@@ -1,6 +1,7 @@
 package services;
 
 import dataaccess.AuthSQL;
+import dataaccess.DataAccessException;
 import dataaccess.GameSQL;
 import dataaccess.UserSQL;
 
@@ -10,7 +11,7 @@ public class Service {
     protected GameSQL gameSQL;
     protected UserSQL userSQL;
 
-    public Service() {
+    public Service() throws DataAccessException {
         authSQL = new AuthSQL();
         gameSQL = new GameSQL();
         userSQL = new UserSQL();

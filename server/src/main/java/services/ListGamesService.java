@@ -6,7 +6,7 @@ import resultclasses.ListGamesResult;
 
 public class ListGamesService extends Service {
 
-    public ListGamesService() {
+    public ListGamesService() throws DataAccessException {
         super();
     }
 

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class JoinGameService extends Service {
 
-    public JoinGameService() {
+    public JoinGameService() throws DataAccessException {
         super();
     }
 

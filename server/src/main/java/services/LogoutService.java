@@ -7,7 +7,7 @@ import server.ServerException;
 
 public class LogoutService extends Service {
 
-    public LogoutService() {
+    public LogoutService() throws DataAccessException {
         super();
     }
 

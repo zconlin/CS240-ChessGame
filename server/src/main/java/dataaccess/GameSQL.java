@@ -15,8 +15,23 @@ import java.util.HashSet;
 
 public class GameSQL extends DataAccess {
 
-    public GameSQL() {
+    public GameSQL() throws DataAccessException {
         super();
+
+        String[] createStatements = {
+                """
+            CREATE TABLE IF NOT EXISTS auth (
+            `gameID` INT AUTO_INCREMENT,
+            `whiteUsername` VARCHAR(24) NULL,
+            `blackUsername` VARCHAR(24) NULL,
+            `spectators` text NULL,
+            `gameName` VARCHAR(24) NULL,
+            `game` text NULL,
+            PRIMARY KEY (`gameID`)
+            );
+            """
+        };
+        ConfigureDatabase.configureDatabase(createStatements);
     }
 
     public boolean gameExists(Game game) throws DataAccessException, ServerException {
