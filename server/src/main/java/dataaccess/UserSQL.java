@@ -3,7 +3,9 @@ package dataaccess;
 import model.User;
 import dataaccess.DataAccessException;
 import dataaccess.DataAccess;
+import org.mindrot.jbcrypt.BCrypt;
 import server.ServerException;
+
 
 import java.sql.SQLException;
 
@@ -21,9 +23,10 @@ public class UserSQL extends DataAccess {
         }
 
         var sql = "INSERT INTO chess.user (username, password, email) VALUES (?, ?, ?);";
+
         try (var stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getPassword());
+            stmt.setString(2, BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
             stmt.setString(3, user.getEmail());
             stmt.executeUpdate();
         } catch (SQLException e) {

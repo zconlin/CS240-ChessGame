@@ -2,6 +2,7 @@ package services;
 
 import dataaccess.*;
 import model.User;
+import org.mindrot.jbcrypt.BCrypt;
 import requestclasses.LoginRequest;
 import resultclasses.LoginResult;
 import model.AuthToken;
@@ -32,7 +33,7 @@ public class LoginService extends Service {
         } catch (Exception e) {
             throw new ServerException("Error: " + e.getMessage(), 500);
         }
-        if (user == null || !user.password().equals(request.getPassword())) {
+        if (user == null || !BCrypt.checkpw(request.getPassword(), user.getPassword())) {
             throw new ServerException("Error: unauthorized", 401);
         }
         //Add auth token
