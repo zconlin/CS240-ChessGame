@@ -16,7 +16,7 @@ public class UserSQL extends DataAccess {
 
         String[] createStatements = {
                 """
-            CREATE TABLE IF NOT EXISTS auth (
+            CREATE TABLE IF NOT EXISTS user (
             `username` VARCHAR(24) NOT NULL,
             `password` VARCHAR(72) NOT NULL,
             `email` VARCHAR(36) NULL,
