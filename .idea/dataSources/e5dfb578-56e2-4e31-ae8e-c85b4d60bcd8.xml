@@ -1028,7 +1028,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Charset>utf8mb4</Charset>
     </collation>
     <schema id="288" parent="1" name="chess">
-      <LastIntrospectionLocalTimestamp>2024-05-30.15:07:04</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-05-31.01:36:26</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="289" parent="1" name="information_schema">
@@ -1138,7 +1138,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Position>1</Position>
     </column>
     <column id="314" parent="300" name="password">
-      <DasType>varchar(24)|0s</DasType>
+      <DasType>varchar(72)|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="315" parent="300" name="email">

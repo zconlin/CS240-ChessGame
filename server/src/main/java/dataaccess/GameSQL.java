@@ -184,6 +184,4 @@ public class GameSQL extends DataAccess {
             throw new ServerException("Unable to clear data", 500);
         }
     }
-
-
 }

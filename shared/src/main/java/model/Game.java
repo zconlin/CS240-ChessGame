@@ -4,6 +4,7 @@ import chess.ChessGame;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 
 public class Game {
 
@@ -16,8 +17,8 @@ public class Game {
 
     public Game() {
         this.gameID = null;
-        this.whiteUsername = "";
-        this.blackUsername = "";
+        this.whiteUsername = null;
+        this.blackUsername = null;
         this.spectators = new HashSet<>();
         this.gameName = "";
         this.game = new ChessGame();
@@ -86,5 +87,30 @@ public class Game {
 
     public ChessGame getGame() {
         return game;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game1 = (Game) o;
+        return Objects.equals(gameID, game1.gameID) && Objects.equals(whiteUsername, game1.whiteUsername) && Objects.equals(blackUsername, game1.blackUsername) && Objects.equals(spectators, game1.spectators) && Objects.equals(gameName, game1.gameName) && Objects.equals(game, game1.game);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(gameID, whiteUsername, blackUsername, spectators, gameName, game);
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "gameID='" + gameID + '\'' +
+                ", whiteUsername='" + whiteUsername + '\'' +
+                ", blackUsername='" + blackUsername + '\'' +
+                ", spectators=" + spectators +
+                ", gameName='" + gameName + '\'' +
+                ", game=" + game +
+                '}';
     }
 }

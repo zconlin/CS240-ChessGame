@@ -94,7 +94,21 @@ public class DatabaseManager {
 
         //Game
         conn = getConnection();
-        sql = "DELETE FROM chess.game;";
+        String dropSql = "DROP TABLE IF EXISTS chess.game;";
+        try (var dropStmt = conn.prepareStatement(dropSql)) {
+            dropStmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException("Error dropping table: " + e.getMessage());
+        }
+
+        sql = "CREATE TABLE chess.game (" +
+                "gameID INT AUTO_INCREMENT PRIMARY KEY," +
+                "whiteUsername VARCHAR(24)," +
+                "blackUsername VARCHAR(24)," +
+                "spectators TEXT," +
+                "gameName VARCHAR(24)," +
+                "game TEXT" +
+                ");";
         try (var stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();
         } catch (SQLException e) {

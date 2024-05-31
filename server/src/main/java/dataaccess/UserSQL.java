@@ -32,17 +32,17 @@ public class UserSQL extends DataAccess {
         } catch (SQLException e) {
             throw new DataAccessException("Error: " + e.getMessage());
         }
-    } catch (Exception e) {
-            throw new ServerException("Unable to read data", 500);
+    } catch (ServerException e) {
+            throw e;
+        }
+
+        catch (Exception e) {
+            throw new DataAccessException("Unable to read data");
         }
     }
 
     public User getUser(String username) throws DataAccessException, ServerException {
         try (var conn = DatabaseManager.getConnection()) {
-
-            if (!userExists(new User(username, null, null))) {
-            throw new DataAccessException("Error: Username does not exist");
-        }
 
         var sql = "SELECT * FROM chess.user WHERE username = ?;";
         try (var stmt = conn.prepareStatement(sql)) {
@@ -56,7 +56,7 @@ public class UserSQL extends DataAccess {
             throw new DataAccessException("Error: " + e.getMessage());
         }
     } catch (Exception e) {
-        throw new ServerException("Unable to read data", 500);
+        throw new DataAccessException("Unable to read data");
     }
 }
 
