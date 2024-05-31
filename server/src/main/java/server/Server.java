@@ -24,11 +24,11 @@ public class Server {
     private final JoinGameHandler joinGameHandler;
     private final ListGamesHandler listGamesHandler;
 
-    public static void main(String[] args) throws DataAccessException {
+    public static void main(String[] args) {
         (new Server()).run(8080);
     }
 
-    public Server() throws DataAccessException {
+    public Server() {
         this.loginService = new LoginService(this.authSQL, this.userSQL);
         this.clearDBService = new ClearDBService(this.authSQL, this.gameSQL, this.userSQL);
         this.createGameService = new CreateGameService(this.authSQL, this.gameSQL, this.userSQL);

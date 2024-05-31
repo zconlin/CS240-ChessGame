@@ -5,8 +5,7 @@ import requestclasses.ClearDBRequest;
 import resultclasses.ClearDBResult;
 
 public class ClearDBService extends Service {
-    public ClearDBService() throws DataAccessException {
-        super();
+    public ClearDBService() {
     }
 
     public ClearDBService(AuthSQL authSQL, GameSQL gameSQL, UserSQL userSQL) {

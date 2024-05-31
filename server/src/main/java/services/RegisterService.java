@@ -8,7 +8,7 @@ import model.User;
 
 public class RegisterService extends Service {
 
-    public RegisterService() throws DataAccessException {
+    public RegisterService() {
         super();
     }
 

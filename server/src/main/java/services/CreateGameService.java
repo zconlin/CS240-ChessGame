@@ -8,7 +8,7 @@ import server.ServerException;
 
 public class CreateGameService extends Service {
 
-    public CreateGameService() throws DataAccessException {
+    public CreateGameService() {
         super();
     }
 
