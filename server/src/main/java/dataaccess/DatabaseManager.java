@@ -83,7 +83,7 @@ public class DatabaseManager {
 
         //Auth
         var conn = getConnection();
-        var sql = "DELETE FROM chessdb.auth;";
+        var sql = "DELETE FROM chess.auth;";
         try (var stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -94,7 +94,7 @@ public class DatabaseManager {
 
         //Game
         conn = getConnection();
-        sql = "DELETE FROM chessdb.games;";
+        sql = "DELETE FROM chess.game;";
         try (var stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -105,7 +105,7 @@ public class DatabaseManager {
 
         //User
         conn = getConnection();
-        sql = "DELETE FROM chessdb.users;";
+        sql = "DELETE FROM chess.user;";
         try (var stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();
         } catch (SQLException e) {
