@@ -13,6 +13,22 @@ public class UserSQL extends DataAccess {
 
     public UserSQL() {
         super();
+
+        String[] createStatements = {
+                """
+            CREATE TABLE IF NOT EXISTS user (
+            `username` VARCHAR(24) NOT NULL,
+            `password` VARCHAR(72) NOT NULL,
+            `email` VARCHAR(36) NULL,
+            PRIMARY KEY (`username`)
+            );
+            """
+        };
+        try {
+            ConfigureDatabase.configureDatabase(createStatements);
+        } catch (DataAccessException e) {
+            throw new RuntimeException();
+        }
     }
 
     public void addUser(User user) throws DataAccessException, ServerException {
