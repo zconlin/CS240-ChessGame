@@ -41,7 +41,7 @@ public class GameSQL extends DataAccess {
     public boolean gameExists(Game game) throws DataAccessException, ServerException {
         try (var conn = DatabaseManager.getConnection()) {
 
-            var sql = "SELECT * FROM chess.game WHERE gameID = ?;";
+            var sql = "SELECT * FROM game WHERE gameID = ?;";
             try (var stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, game.getGameID());
                 var rs = stmt.executeQuery();
@@ -61,7 +61,7 @@ public class GameSQL extends DataAccess {
                 throw new DataAccessException("Error: GameID already exists");
             }
 
-            var sql = "INSERT INTO chess.game (whiteUsername, blackUsername, spectators, gameName, game) VALUES (?, ?, ?, ?, ?);";
+            var sql = "INSERT INTO game (whiteUsername, blackUsername, spectators, gameName, game) VALUES (?, ?, ?, ?, ?);";
             try (var stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 var gson = new Gson();
 
@@ -93,7 +93,7 @@ public class GameSQL extends DataAccess {
                 throw new DataAccessException("Error: GameID does not exist");
             }
 
-            var sql = "SELECT * FROM chess.game WHERE gameID = ?;";
+            var sql = "SELECT * FROM game WHERE gameID = ?;";
             try (var stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, gameID);
                 var rs = stmt.executeQuery();
@@ -125,7 +125,7 @@ public class GameSQL extends DataAccess {
 
             var result = new ArrayList<Game>();
 
-            var sql = "SELECT * FROM chess.game;";
+            var sql = "SELECT * FROM game;";
             try (var stmt = conn.prepareStatement(sql)) {
                 var rs = stmt.executeQuery();
                 while (rs.next()) {
@@ -158,7 +158,7 @@ public class GameSQL extends DataAccess {
                 throw new DataAccessException("Error: GameID does not exist");
             }
 
-            var sql = "UPDATE chess.game SET whiteUsername = ?, blackUsername = ?, spectators = ?, gameName = ?, game = ? WHERE gameID = ?;";
+            var sql = "UPDATE game SET whiteUsername = ?, blackUsername = ?, spectators = ?, gameName = ?, game = ? WHERE gameID = ?;";
             try (var stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, game.getWhiteUsername());
                 stmt.setString(2, game.getBlackUsername());
@@ -179,14 +179,14 @@ public class GameSQL extends DataAccess {
 
     public void clear() throws ServerException {
         try (var conn = DatabaseManager.getConnection()) {
-            String dropSql = "DROP TABLE IF EXISTS chess.game;";
+            String dropSql = "DROP TABLE IF EXISTS game;";
             try (var dropStmt = conn.prepareStatement(dropSql)) {
                 dropStmt.executeUpdate();
             } catch (SQLException e) {
                 throw new DataAccessException("Error dropping table: " + e.getMessage());
             }
 
-            String createSql = "CREATE TABLE chess.game (" +
+            String createSql = "CREATE TABLE game (" +
                     "gameID INT AUTO_INCREMENT PRIMARY KEY," +
                     "whiteUsername VARCHAR(24)," +
                     "blackUsername VARCHAR(24)," +

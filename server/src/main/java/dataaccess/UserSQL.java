@@ -13,22 +13,6 @@ public class UserSQL extends DataAccess {
 
     public UserSQL() {
         super();
-
-        String[] createStatements = {
-                """
-            CREATE TABLE IF NOT EXISTS user (
-            `username` VARCHAR(24) NOT NULL,
-            `password` VARCHAR(72) NOT NULL,
-            `email` VARCHAR(36) NULL,
-            PRIMARY KEY (`username`)
-            );
-            """
-        };
-        try {
-            ConfigureDatabase.configureDatabase(createStatements);
-        } catch (DataAccessException e) {
-            throw new RuntimeException();
-        }
     }
 
     public void addUser(User user) throws DataAccessException, ServerException {
@@ -38,7 +22,7 @@ public class UserSQL extends DataAccess {
             throw new DataAccessException("Error: Username already exists");
         }
 
-        var sql = "INSERT INTO chess.user (username, password, email) VALUES (?, ?, ?);";
+        var sql = "INSERT INTO user (username, password, email) VALUES (?, ?, ?);";
 
         try (var stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, user.getUsername());
@@ -60,7 +44,7 @@ public class UserSQL extends DataAccess {
     public User getUser(String username) throws DataAccessException, ServerException {
         try (var conn = DatabaseManager.getConnection()) {
 
-        var sql = "SELECT * FROM chess.user WHERE username = ?;";
+        var sql = "SELECT * FROM user WHERE username = ?;";
         try (var stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
             var rs = stmt.executeQuery();
@@ -79,7 +63,7 @@ public class UserSQL extends DataAccess {
     public boolean userExists(User user) throws DataAccessException, ServerException {
         try (var conn = DatabaseManager.getConnection()) {
 
-        var sql = "SELECT * FROM chess.user WHERE username = ?;";
+        var sql = "SELECT * FROM user WHERE username = ?;";
         try (var stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, user.getUsername());
             var rs = stmt.executeQuery();
@@ -113,7 +97,7 @@ public class UserSQL extends DataAccess {
                 throw new DataAccessException("Error: Username does not exist");
             }
 
-            var sql = "DELETE FROM chess.user WHERE username = ?;";
+            var sql = "DELETE FROM user WHERE username = ?;";
             try (var stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, user.getUsername());
                 stmt.executeUpdate();

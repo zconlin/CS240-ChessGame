@@ -9,21 +9,21 @@ public class AuthSQL extends DataAccess {
 
     public AuthSQL() {
         super();
-
-        String[] createStatements = {
-                """
-            CREATE TABLE IF NOT EXISTS auth (
-            `authToken` VARCHAR(36) NOT NULL,
-            `username` VARCHAR(24) NOT NULL,
-            PRIMARY KEY (`authToken`)
-            );
-            """
-        };
-        try {
-            ConfigureDatabase.configureDatabase(createStatements);
-        } catch (DataAccessException e) {
-            throw new RuntimeException();
-        }
+//
+//        String[] createStatements = {
+//                """
+//            CREATE TABLE IF NOT EXISTS auth (
+//            `authToken` VARCHAR(36) NOT NULL,
+//            `username` VARCHAR(24) NOT NULL,
+//            PRIMARY KEY (`authToken`)
+//            );
+//            """
+//        };
+//        try {
+//            ConfigureDatabase.configureDatabase(createStatements);
+//        } catch (DataAccessException e) {
+//            throw new RuntimeException();
+//        }
     }
 
     public void addAuthToken(AuthToken authToken) throws DataAccessException, ServerException {
@@ -33,7 +33,7 @@ public class AuthSQL extends DataAccess {
                 throw new DataAccessException("Error: Authentication token already exists");
             }
 
-            var sql = "INSERT INTO chess.auth (authToken, username) VALUES (?, ?);";
+            var sql = "INSERT INTO auth (authToken, username) VALUES (?, ?);";
             try (var stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, authToken.getAuthToken());
                 stmt.setString(2, authToken.getUsername());
@@ -56,7 +56,7 @@ public class AuthSQL extends DataAccess {
     public void clear() throws DataAccessException, ServerException {
         try (var conn = DatabaseManager.getConnection()) {
 
-            var sql = "DELETE FROM chess.auth;";
+            var sql = "DELETE FROM auth;";
             try (var stmt = conn.prepareStatement(sql)) {
                 stmt.executeUpdate();
             } catch (SQLException e) {
@@ -74,7 +74,7 @@ public class AuthSQL extends DataAccess {
                 throw new DataAccessException("Error: Authentication token does not exist");
             }
 
-            var sql = "DELETE FROM chess.auth WHERE authToken = ?;";
+            var sql = "DELETE FROM auth WHERE authToken = ?;";
             try (var stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, authToken);
                 stmt.executeUpdate();
@@ -93,7 +93,7 @@ public class AuthSQL extends DataAccess {
                 throw new DataAccessException("Error: Authentication token does not exist");
             }
 
-            var sql = "SELECT username FROM chess.auth WHERE authToken = ?;";
+            var sql = "SELECT username FROM auth WHERE authToken = ?;";
             try (var stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, authToken);
                 var rs = stmt.executeQuery();
@@ -112,7 +112,7 @@ public class AuthSQL extends DataAccess {
     public boolean authTokenExists(String authToken) throws DataAccessException, ServerException {
         try (var conn = DatabaseManager.getConnection()) {
 
-            var sql = "SELECT * FROM chess.auth WHERE authToken = ?;";
+            var sql = "SELECT * FROM auth WHERE authToken = ?;";
             try (var stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, authToken);
                 var rs = stmt.executeQuery();

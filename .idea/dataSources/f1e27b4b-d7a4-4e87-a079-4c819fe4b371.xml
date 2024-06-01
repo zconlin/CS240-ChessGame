@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="@localhost">
+<dataSource name="chess">
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.52">
     <root id="1">
       <DefaultCasing>lower/lower</DefaultCasing>
@@ -1028,6 +1028,8 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Charset>utf8mb4</Charset>
     </collation>
     <schema id="288" parent="1" name="chess">
+      <Current>1</Current>
+      <LastIntrospectionLocalTimestamp>2024-05-31.21:18:38</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="289" parent="1" name="information_schema">
@@ -1064,5 +1066,97 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <user id="297" parent="1" name="zconlin">
       <Plugin>caching_sha2_password</Plugin>
     </user>
+    <table id="298" parent="288" name="auth">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="299" parent="288" name="game">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="300" parent="288" name="user">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="301" parent="298" name="authToken">
+      <DasType>varchar(36)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="302" parent="298" name="username">
+      <DasType>varchar(24)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <index id="303" parent="298" name="PRIMARY">
+      <ColNames>authToken</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="304" parent="298" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="305" parent="299" name="gameID">
+      <AutoIncrement>2</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="306" parent="299" name="whiteUsername">
+      <DasType>varchar(24)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="307" parent="299" name="blackUsername">
+      <DasType>varchar(24)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="308" parent="299" name="spectators">
+      <DasType>text|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="309" parent="299" name="gameName">
+      <DasType>varchar(24)|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="310" parent="299" name="game">
+      <DasType>text|0s</DasType>
+      <Position>6</Position>
+    </column>
+    <index id="311" parent="299" name="PRIMARY">
+      <ColNames>gameID</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="312" parent="299" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="313" parent="300" name="username">
+      <DasType>varchar(24)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="314" parent="300" name="password">
+      <DasType>varchar(72)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="315" parent="300" name="email">
+      <DasType>varchar(36)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <index id="316" parent="300" name="PRIMARY">
+      <ColNames>username</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="317" parent="300" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
   </database-model>
 </dataSource>
