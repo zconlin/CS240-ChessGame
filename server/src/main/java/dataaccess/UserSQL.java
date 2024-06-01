@@ -79,7 +79,7 @@ public class UserSQL extends DataAccess {
     public void clear() throws DataAccessException, ServerException {
         try (var conn = DatabaseManager.getConnection()) {
 
-        var sql = "DELETE FROM chess.user;";
+        var sql = "DELETE FROM user;";
         try (var stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();
         } catch (SQLException e) {
