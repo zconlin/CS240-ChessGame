@@ -37,6 +37,7 @@ public class UserSQL extends DataAccess {
         }
 
         catch (Exception e) {
+            e.printStackTrace();
             throw new DataAccessException("Unable to read data");
         }
     }
@@ -53,6 +54,7 @@ public class UserSQL extends DataAccess {
             }
             return null;
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DataAccessException("Error: " + e.getMessage());
         }
     } catch (Exception e) {
@@ -72,6 +74,7 @@ public class UserSQL extends DataAccess {
             throw new DataAccessException("Error: " + e.getMessage());
         }
     } catch (Exception e) {
+            e.printStackTrace();
             throw new ServerException("Unable to read data", 500);
         }
     }
@@ -86,6 +89,7 @@ public class UserSQL extends DataAccess {
             throw new DataAccessException("Error: " + e.getMessage());
         }
     } catch (Exception e) {
+            e.printStackTrace();
         throw new ServerException("Unable to read data", 500);
     }
 }
@@ -105,6 +109,7 @@ public class UserSQL extends DataAccess {
                 throw new DataAccessException("Error: " + e.getMessage());
             }
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ServerException("Unable to read data", 500);
         }
     }
