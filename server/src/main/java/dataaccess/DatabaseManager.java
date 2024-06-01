@@ -83,7 +83,7 @@ public class DatabaseManager {
 
         //Auth
         var conn = getConnection();
-        var sql = "DELETE FROM chess.auth;";
+        var sql = "DELETE FROM auth;";
         try (var stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -94,14 +94,14 @@ public class DatabaseManager {
 
         //Game
         conn = getConnection();
-        String dropSql = "DROP TABLE IF EXISTS chess.game;";
+        String dropSql = "DROP TABLE IF EXISTS game;";
         try (var dropStmt = conn.prepareStatement(dropSql)) {
             dropStmt.executeUpdate();
         } catch (SQLException e) {
             throw new DataAccessException("Error dropping table: " + e.getMessage());
         }
 
-        sql = "CREATE TABLE chess.game (" +
+        sql = "CREATE TABLE game (" +
                 "gameID INT AUTO_INCREMENT PRIMARY KEY," +
                 "whiteUsername VARCHAR(24)," +
                 "blackUsername VARCHAR(24)," +
@@ -119,7 +119,7 @@ public class DatabaseManager {
 
         //User
         conn = getConnection();
-        sql = "DELETE FROM chess.user;";
+        sql = "DELETE FROM user;";
         try (var stmt = conn.prepareStatement(sql)) {
             stmt.executeUpdate();
         } catch (SQLException e) {
