@@ -61,22 +61,6 @@ public class Game {
         return spectators;
     }
 
-    public void setSpectators(HashSet<String> spectators) {
-        this.spectators = spectators;
-    }
-
-    public void addSpectator(String observer) {
-        this.spectators.add(observer);
-    }
-
-    public void removeSpectator(String observer) {
-        this.spectators.remove(observer);
-    }
-
-    public boolean isSpectator(String observer) {
-        return this.spectators.contains(observer);
-    }
-
     public String getGameName() {
         return gameName;
     }
