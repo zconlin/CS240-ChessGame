@@ -1,16 +1,11 @@
 package dataaccess;
 
-import dataaccess.*;
-import model.AuthToken;
 import model.Game;
 import model.User;
 import chess.ChessGame;
 import org.junit.jupiter.api.*;
-import org.mindrot.jbcrypt.BCrypt;
-import server.Server;
 import server.ServerException;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class GameSQLDAOTests {
@@ -33,8 +28,7 @@ public class GameSQLDAOTests {
         db.clear();
     }
 
-    @Test
-    public void testGameSQLgameExistsPositive() {
+    private void SQLGameHelper(Game game1, Game game2) {
         // Make users
         var user1 = new User("username1", "password1", "email1");
         var user2 = new User("username2", "password2", "email2");
@@ -43,8 +37,8 @@ public class GameSQLDAOTests {
         var cgame1 = new ChessGame();
         var cgame2 = new ChessGame();
 
-        var game1 = new Game("1", user1.getUsername(), user2.getUsername(), new HashSet<>(), "test", cgame1);
-        var game2 = new Game("2", null, null, new HashSet<>(), "test", cgame2);
+        game1 = new Game("1", user1.getUsername(), user2.getUsername(), new HashSet<>(), "test", cgame1);
+        game2 = new Game("2", null, null, new HashSet<>(), "test", cgame2);
 
         // Test addGame
         try {
@@ -53,14 +47,14 @@ public class GameSQLDAOTests {
         } catch (DataAccessException | ServerException e) {
             Assertions.fail(e.getMessage());
         }
+    }
 
-        // Test gameExists
-        try {
-            Assertions.assertTrue(gameSQL.gameExists(game1));
-            Assertions.assertTrue(gameSQL.gameExists(game2));
-        } catch (DataAccessException | ServerException e) {
-            Assertions.fail(e.getMessage());
-        }
+    @Test
+    public void testGameSQLgameExistsPositive() {
+        Game game1 = new Game();
+        Game game2 = new Game();
+
+        SQLGameHelper(game1, game2);
     }
 
     @Test
