@@ -28,7 +28,7 @@ public class GameSQLDAOTests {
         db.clear();
     }
 
-    private void SQLGameHelper(Game game1, Game game2) {
+    private void gameDuplicateCodeHelper(Game game1, Game game2) {
         // Make users
         var user1 = new User("username1", "password1", "email1");
         var user2 = new User("username2", "password2", "email2");
@@ -54,7 +54,7 @@ public class GameSQLDAOTests {
         Game game1 = new Game();
         Game game2 = new Game();
 
-        SQLGameHelper(game1, game2);
+        gameDuplicateCodeHelper(game1, game2);
     }
 
     @Test
