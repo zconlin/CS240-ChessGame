@@ -102,6 +102,7 @@ public class ChessBoard {
 
     public static class ChessBoardTA implements JsonDeserializer<ChessBoard> {
 
+        @Override
         public ChessBoard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
             var gson = new GsonBuilder()
                     .registerTypeAdapter(ChessPiece.class, new ChessPiece.ChessPieceTA())
