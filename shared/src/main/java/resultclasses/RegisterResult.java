@@ -8,7 +8,6 @@ import java.lang.reflect.Type;
 public class RegisterResult extends Result {
 
     private AuthToken authToken;
-
     private String username;
 
     public RegisterResult() {
@@ -41,7 +40,11 @@ public class RegisterResult extends Result {
         return username;
     }
 
-    public static class RegisterResultTypeAdapter implements JsonSerializer<RegisterResult> {
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public static class RegisterResultTypeAdapter implements JsonSerializer<RegisterResult>, JsonDeserializer<RegisterResult> {
 
         @Override
         public JsonElement serialize(RegisterResult registerResult, Type type, JsonSerializationContext jsonSerializationContext) {
@@ -59,6 +62,32 @@ public class RegisterResult extends Result {
                 jsonObject.addProperty("status", registerResult.getStatus());
             }
             return jsonObject;
+        }
+
+        @Override
+        public RegisterResult deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+            String authToken = null;
+            if (jsonObject.has("authToken")) {
+                authToken = jsonObject.get("authToken").getAsString();
+            }
+
+            String username = null;
+            if (jsonObject.has("username")) {
+                username = jsonObject.get("username").getAsString();
+            }
+
+            String message = null;
+            if (jsonObject.has("message")) {
+                message = jsonObject.get("message").getAsString();
+            }
+
+            if (authToken != null && username != null) {
+                return new RegisterResult(new AuthToken(authToken, username), username);
+            } else {
+                return new RegisterResult(400, message);
+            }
         }
     }
 }

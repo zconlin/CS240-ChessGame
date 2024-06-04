@@ -1,7 +1,5 @@
 package requestclasses;
 
-import model.AuthToken;
-
 public class LogoutRequest extends Request {
 
     private String username;

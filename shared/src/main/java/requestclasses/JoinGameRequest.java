@@ -1,11 +1,8 @@
 package requestclasses;
 
-import model.AuthToken;
-
 public class JoinGameRequest extends Request {
 
     private Integer gameID;
-
     private String playerColor;
 
     public JoinGameRequest() {
@@ -30,5 +27,9 @@ public class JoinGameRequest extends Request {
 
     public String getPlayerColor() {
         return playerColor;
+    }
+
+    public void setPlayerColor(String playerColor) {
+        this.playerColor = playerColor;
     }
 }

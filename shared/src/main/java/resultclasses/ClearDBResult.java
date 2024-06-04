@@ -2,6 +2,7 @@ package resultclasses;
 
 public class ClearDBResult extends Result {
     public ClearDBResult() {
+        super();
     }
 
     public ClearDBResult(int status, String message) {

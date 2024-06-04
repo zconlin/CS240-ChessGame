@@ -1,7 +1,5 @@
 package requestclasses;
 
-import model.AuthToken;
-
 public class CreateGameRequest extends Request {
 
     private String gameName;
