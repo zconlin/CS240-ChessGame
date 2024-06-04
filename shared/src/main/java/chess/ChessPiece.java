@@ -284,6 +284,7 @@ public class ChessPiece {
 
     public static class ChessPieceTA implements JsonDeserializer<ChessPiece> {
 
+        @Override
         public ChessPiece deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
             return new Gson().fromJson(jsonElement, ChessPiece.class);
         }
