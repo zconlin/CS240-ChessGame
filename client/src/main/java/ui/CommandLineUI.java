@@ -50,7 +50,7 @@ public class CommandLineUI {
             case "login", "log" -> checkStateAndLogin(args);
             case "register", "reg" -> checkStateAndRegister(args);
             case "logout", "exit" -> checkStateAndLogout();
-            case "list", "ll" -> checkStateAndList();
+            case "list", "ll", "show" -> checkStateAndList();
             case "join" -> checkStateAndJoin(args);
             case "create", "new" -> checkStateAndCreateGame(args);
             case "spectate", "observe" -> checkStateAndSpectate(args);
