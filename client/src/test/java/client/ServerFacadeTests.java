@@ -12,34 +12,28 @@ import java.rmi.ServerException;
 
 public class ServerFacadeTests {
 
-    private final ServerFacade serverFacade = new ServerFacade("http://localhost:8080");
+    private static ServerFacade serverFacade;
     private static Server server;
 
-    //    @BeforeAll
+    @BeforeAll
     public static void init() {
         server = new Server();
         var port = server.run(0);
+
+        serverFacade = new ServerFacade("http://localhost:" + port);
+
         System.out.println("Started test HTTP server on " + port);
     }
 
     @BeforeAll
-    public static void setUp() {
-        try {
-            new ServerFacade("http://localhost:8080").clear();
-        } catch (ResponseException e) {
-            Assertions.fail();
-        }
+    public static void setUp() throws ResponseException {
+        serverFacade.clear();
     }
 
     @BeforeEach
-    public void setUp2() {
-        try {
-            var s = new ServerFacade("http://localhost:8080");
-            s.clear();
-            s.register("test", "test", "test");
-        } catch (ResponseException e) {
-            Assertions.fail();
-        }
+    public void setUp2() throws ResponseException {
+            serverFacade.clear();
+            serverFacade.register("test", "test", "test");
     }
 
     @Test
@@ -143,21 +137,15 @@ public class ServerFacadeTests {
     }
 
     @Test
-    public void testJoinGamePositive() {
-        try {
-            LoginResult loginResult = serverFacade.login("test", "test");
-            Assertions.assertNotNull(loginResult);
-            Assertions.assertNotNull(loginResult.getAuthToken());
-            CreateGameResult createGameResult = serverFacade.createGame(loginResult.getAuthToken(), "test");
-            Assertions.assertNotNull(createGameResult);
-            Assertions.assertNotNull(createGameResult.getGameID());
-            var res = serverFacade.joinGame(loginResult.getAuthToken(), Integer.valueOf(createGameResult.getGameID()), null);
-            Assertions.assertNotNull(res);
-        } catch (ResponseException e) {
-            Assertions.fail();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public void testJoinGamePositive() throws ResponseException {
+        LoginResult loginResult = serverFacade.login("test", "test");
+        Assertions.assertNotNull(loginResult);
+        Assertions.assertNotNull(loginResult.getAuthToken());
+        CreateGameResult createGameResult = serverFacade.createGame(loginResult.getAuthToken(), "test");
+        Assertions.assertNotNull(createGameResult);
+        Assertions.assertNotNull(createGameResult.getGameID());
+        var res = serverFacade.joinGame(loginResult.getAuthToken(), Integer.valueOf(createGameResult.getGameID()), "WHITE");
+        Assertions.assertNotNull(res);
     }
 
     @Test

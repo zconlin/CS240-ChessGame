@@ -3,7 +3,7 @@ package server;
 import dataaccess.*;
 import handler.*;
 import services.*;
-import spark.Spark;
+import spark.*;
 
 public class Server {
     private final AuthSQL authSQL = new AuthSQL();
