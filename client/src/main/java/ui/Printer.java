@@ -38,14 +38,14 @@ public class Printer {
         WHITE(EscapeSequences.SET_BG_COLOR_WHITE),
         RESET(EscapeSequences.RESET_BG_COLOR);
 
-        BGColor(String ES) {
-            this.ES = ES;
+        BGColor(String es) {
+            this.es = es;
         }
 
-        private final String ES;
+        private final String es;
 
-        public String getES() {
-            return this.ES;
+        public String getEs() {
+            return this.es;
         }
     }
 
@@ -54,14 +54,14 @@ public class Printer {
         FAINT(EscapeSequences.SET_TEXT_FAINT),
         RESET(EscapeSequences.RESET_TEXT_BOLD_FAINT);
 
-        Thickness(String ES) {
-            this.ES = ES;
+        Thickness(String es) {
+            this.es = es;
         }
 
-        private final String ES;
+        private final String es;
 
-        public String getES() {
-            return this.ES;
+        public String getEs() {
+            return this.es;
         }
     }
 
@@ -69,14 +69,14 @@ public class Printer {
         ITALIC(EscapeSequences.SET_TEXT_ITALIC),
         RESET(EscapeSequences.RESET_TEXT_ITALIC);
 
-        Italic(String ES) {
-            this.ES = ES;
+        Italic(String es) {
+            this.es = es;
         }
 
-        private final String ES;
+        private final String es;
 
-        public String getES() {
-            return this.ES;
+        public String getEs() {
+            return this.es;
         }
     }
 
@@ -84,14 +84,14 @@ public class Printer {
         UNDERLINE(EscapeSequences.SET_TEXT_UNDERLINE),
         RESET(EscapeSequences.RESET_TEXT_UNDERLINE);
 
-        Underline(String ES) {
-            this.ES = ES;
+        Underline(String es) {
+            this.es = es;
         }
 
-        private final String ES;
+        private final String es;
 
-        public String getES() {
-            return this.ES;
+        public String getEs() {
+            return this.es;
         }
     }
 
@@ -99,14 +99,14 @@ public class Printer {
         BLINKING(EscapeSequences.SET_TEXT_BLINKING),
         RESET(EscapeSequences.RESET_TEXT_BLINKING);
 
-        Blinking(String ES) {
-            this.ES = ES;
+        Blinking(String es) {
+            this.es = es;
         }
 
-        private final String ES;
+        private final String es;
 
-        public String getES() {
-            return this.ES;
+        public String getEs() {
+            return this.es;
         }
     }
 
@@ -132,11 +132,11 @@ public class Printer {
     public void print(String message) {
         StringBuilder sb = new StringBuilder();
         sb.append(this.color.getEs());
-        sb.append(this.background.getES());
-        sb.append(this.thickness.getES());
-        sb.append(this.italic.getES());
-        sb.append(this.underline.getES());
-        sb.append(this.blinking.getES());
+        sb.append(this.background.getEs());
+        sb.append(this.thickness.getEs());
+        sb.append(this.italic.getEs());
+        sb.append(this.underline.getEs());
+        sb.append(this.blinking.getEs());
         sb.append(" ".repeat(Math.max(0, this.indent)));
         sb.append(message);
         System.out.print(sb);

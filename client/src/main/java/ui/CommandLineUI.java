@@ -63,6 +63,14 @@ public class CommandLineUI {
         return true;
     }
 
+    private void printUser() {
+        p.reset();
+        p.setColor(Printer.Color.GREEN);
+        p.print("[" + username + "] >>> ");
+        p.setColor(Printer.Color.YELLOW);
+        p.print("");
+    }
+
     private void checkStateAndSpectate(String[] args) {
         if (this.state == State.LOGGED_IN) {
             if (this.gameList == null) {
@@ -77,11 +85,7 @@ public class CommandLineUI {
                 boolean inGame = true;
                 while (inGame) {
                     Scanner scanner = new Scanner(System.in);
-                    p.reset();
-                    p.setColor(Printer.Color.GREEN);
-                    p.print("[" + username + "] >>> ");
-                    p.setColor(Printer.Color.YELLOW);
-                    p.print("");
+                    printUser();
                     String input = scanner.nextLine();
                 }
                 this.state = State.LOGGED_IN;
@@ -122,11 +126,7 @@ public class CommandLineUI {
                     boolean inGame = true;
                     while (inGame) {
                         Scanner scanner = new Scanner(System.in);
-                        p.reset();
-                        p.setColor(Printer.Color.GREEN);
-                        p.print("[" + username + "] >>> ");
-                        p.setColor(Printer.Color.YELLOW);
-                        p.print("");
+                        printUser();
                         String input = scanner.nextLine();
                     }
                     this.state = State.LOGGED_IN;
