@@ -20,7 +20,7 @@ public class JoinGameService extends Service {
 
     public JoinGameResult joinGame(JoinGameRequest request) throws ServerException {
         // Check if authentication token or gameID are null
-        if (request.getAuthToken() == null) { //|| request.getGameID() == 0) {
+        if (request.getAuthToken() == null) {
             return new JoinGameResult(400, "JoinGame Error: bad request");
         }
 
@@ -54,7 +54,7 @@ public class JoinGameService extends Service {
                 if (game.getWhiteUsername() == null) {
                     game.setWhiteUsername(username);
                     gameSQL.updateGame(game);
-                    return new JoinGameResult(200);
+                    return new JoinGameResult(200, "JoinGame Success");
                 } else {
                     throw new ServerException("Error: already taken", 403);
                 }
@@ -62,7 +62,7 @@ public class JoinGameService extends Service {
                 if (game.getBlackUsername() == null) {
                     game.setBlackUsername(username);
                     gameSQL.updateGame(game);
-                    return new JoinGameResult(200);
+                    return new JoinGameResult(200, "JoinGame Success");
                 } else {
                     throw new ServerException("Error: already taken", 403);
                 }
