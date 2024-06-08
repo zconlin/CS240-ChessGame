@@ -22,7 +22,7 @@ public class ListHandler extends Handler {
             p.println("Games:");
             int index = 1;
             for (Game game : res.getGames()) {
-                p.println(index + ") " + game.toString());
+                p.println(index + ") " + "Game ID: " + game.getGameID() + " | Game Name: " + game.getGameName() + " | White Username: " + game.getWhiteUsername() + " | Black Username: " + game.getBlackUsername());
                 index++;
             }
             return res.getGames();
