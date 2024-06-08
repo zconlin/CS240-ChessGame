@@ -1,6 +1,5 @@
 package handler;
 
-import model.AuthToken;
 import requestclasses.JoinGameRequest;
 import resultclasses.JoinGameResult;
 import server.ServerException;

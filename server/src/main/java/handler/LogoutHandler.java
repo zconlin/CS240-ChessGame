@@ -1,6 +1,5 @@
 package handler;
 
-import model.AuthToken;
 import requestclasses.LogoutRequest;
 import resultclasses.LogoutResult;
 import server.ServerException;

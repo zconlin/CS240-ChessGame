@@ -1,7 +1,6 @@
 package handler;
 
 import dataaccess.DataAccessException;
-import model.AuthToken;
 import requestclasses.CreateGameRequest;
 import resultclasses.CreateGameResult;
 import server.ServerException;
