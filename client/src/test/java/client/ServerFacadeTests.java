@@ -11,12 +11,12 @@ import java.rmi.ServerException;
 
 public class ServerFacadeTests {
 
-    private final ServerFacade serverFacade = new ServerFacade("http://localhost:8080");
+    private final ServerFacade serverFacade = new ServerFacade("http://localhost:0");
 
     @BeforeAll
     public static void setUp() {
         try {
-            new ServerFacade("http://localhost:8080").clear();
+            new ServerFacade("http://localhost:0").clear();
         } catch (ResponseException e) {
             Assertions.fail();
         }
@@ -25,7 +25,7 @@ public class ServerFacadeTests {
     @BeforeEach
     public void setUp2() {
         try {
-            var s = new ServerFacade("http://localhost:8080");
+            var s = new ServerFacade("http://localhost:0");
             s.clear();
             s.register("test", "test", "test");
         } catch (ResponseException e) {
