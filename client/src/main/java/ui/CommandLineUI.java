@@ -3,11 +3,10 @@ package ui;
 import java.util.List;
 import java.util.Scanner;
 
-import exceptions.ResponseException;
 import model.AuthToken;
 import model.Game;
 import serverfacade.ServerFacade;
-import ui.UIHandlers.*;
+import ui.uihandlers.*;
 import resultclasses.*;
 
 public class CommandLineUI {
@@ -20,7 +19,6 @@ public class CommandLineUI {
 
     private final Printer p = new Printer();
     private final ServerFacade serverFacade = new ServerFacade("http://localhost:8080");
-//    private GameplayUI gameplayUI;
 
     private final HelpHandler helpHandler = new HelpHandler(serverFacade);
     private final LoginHandler loginHandler = new LoginHandler(serverFacade);
@@ -75,12 +73,6 @@ public class CommandLineUI {
                 JoinGameResult result = spectateHandler.spectate(args, this.authToken, this.gameList);
                 if (result != null) {
                     this.state = State.GAMEPLAY;
-//                    try {
-//                        this.gameplayUI = new GameplayUI(this.authToken, "http://localhost:8080", null, result.getGameID());
-//                        gameplayUI.spectate();
-//                    } catch (ResponseException e) {
-//                        p.println("Error spectating game");
-//                    }
                 }
                 boolean inGame = true;
                 while (inGame) {
@@ -91,7 +83,6 @@ public class CommandLineUI {
                     p.setColor(Printer.Color.YELLOW);
                     p.print("");
                     String input = scanner.nextLine();
-//                    inGame = gameplayUI.replLoop(input);
                 }
                 this.state = State.LOGGED_IN;
             }
@@ -119,21 +110,15 @@ public class CommandLineUI {
 
     private void checkStateAndJoin(String[] args) {
         if (this.state == State.LOGGED_IN) {
-//            if (this.gameList == null) {
-//                p.reset();
-//                p.setColor(Printer.Color.RED);
-//                p.println("You must list games first!");
-//            } else
+            if (this.gameList == null) {
+                p.reset();
+                p.setColor(Printer.Color.RED);
+                p.println("You must list games first!");
+            } else
             {
                 JoinGameResult result = joinHandler.join(args, this.authToken, this.gameList);
                 if (result != null) {
                     this.state = State.GAMEPLAY;
-//                    try {
-//                        this.gameplayUI = new GameplayUI(this.authToken, "http://localhost:8080", result.getPlayerColor(), result.getGameID());
-//                        gameplayUI.join();
-//                    } catch (ResponseException e) {
-//                        p.println("Error joining game");
-//                    }
                     boolean inGame = true;
                     while (inGame) {
                         Scanner scanner = new Scanner(System.in);
@@ -143,7 +128,6 @@ public class CommandLineUI {
                         p.setColor(Printer.Color.YELLOW);
                         p.print("");
                         String input = scanner.nextLine();
-//                        inGame = gameplayUI.replLoop(input);
                     }
                     this.state = State.LOGGED_IN;
                 }

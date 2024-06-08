@@ -53,7 +53,7 @@ public class ServerFacadeTests {
             RegisterResult registerResult = serverFacade.register("test", "test", "test");
             Assertions.fail();
         } catch (ResponseException e) {
-            Assertions.assertEquals(500, e.StatusCode());
+            Assertions.assertEquals(500, e.statusCode());
         }
     }
 
@@ -74,7 +74,7 @@ public class ServerFacadeTests {
             LoginResult loginResult = serverFacade.login("username", "wrongpassword");
             Assertions.fail();
         } catch (ResponseException e) {
-            Assertions.assertEquals(500, e.StatusCode());
+            Assertions.assertEquals(500, e.statusCode());
         }
     }
 
@@ -100,7 +100,7 @@ public class ServerFacadeTests {
             serverFacade.logout(loginResult.getAuthToken());
             Assertions.fail(); //use assert throws
         } catch (ResponseException e) {
-            Assertions.assertEquals(500, e.StatusCode());
+            Assertions.assertEquals(500, e.statusCode());
         }
     }
 
@@ -132,7 +132,7 @@ public class ServerFacadeTests {
             serverFacade.listGames(null);
             Assertions.fail();
         } catch (ResponseException e) {
-            Assertions.assertEquals(500, e.StatusCode());
+            Assertions.assertEquals(500, e.statusCode());
         }
     }
 
@@ -158,7 +158,7 @@ public class ServerFacadeTests {
             serverFacade.joinGame(loginResult.getAuthToken(), 0, "WHITE");
             Assertions.fail();
         } catch (ResponseException e) {
-            Assertions.assertEquals(500, e.StatusCode());
+            Assertions.assertEquals(500, e.statusCode());
         }
     }
 
@@ -181,7 +181,7 @@ public class ServerFacadeTests {
             serverFacade.createGame(loginResult.getAuthToken(), "test");
             Assertions.assertNotNull(loginResult);
         } catch (ResponseException e) {
-            Assertions.assertEquals(500, e.StatusCode());
+            Assertions.assertEquals(500, e.statusCode());
         }
     }
 }

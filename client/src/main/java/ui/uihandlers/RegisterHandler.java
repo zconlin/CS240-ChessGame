@@ -1,4 +1,4 @@
-package ui.UIHandlers;
+package ui.uihandlers;
 
 import exceptions.ResponseException;
 import model.AuthToken;

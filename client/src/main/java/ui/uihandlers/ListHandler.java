@@ -1,12 +1,10 @@
-package ui.UIHandlers;
+package ui.uihandlers;
 
 import model.AuthToken;
 import model.Game;
 import resultclasses.ListGamesResult;
 import serverfacade.ServerFacade;
 import ui.Printer;
-
-import java.util.List;
 
 public class ListHandler extends Handler {
 

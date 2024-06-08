@@ -1,4 +1,4 @@
-package ui.UIHandlers;
+package ui.uihandlers;
 
 import serverfacade.ServerFacade;
 import ui.Printer;

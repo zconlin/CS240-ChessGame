@@ -1,4 +1,4 @@
-package ui.UIHandlers;
+package ui.uihandlers;
 
 import model.AuthToken;
 import model.Game;

@@ -14,14 +14,14 @@ public class Printer {
         WHITE(EscapeSequences.SET_TEXT_COLOR_WHITE),
         RESET(EscapeSequences.RESET_TEXT_COLOR);
 
-        Color(String ES) {
-            this.ES = ES;
+        Color(String es) {
+            this.es = es;
         }
 
-        private final String ES;
+        private final String es;
 
-        public String getES() {
-            return this.ES;
+        public String getEs() {
+            return this.es;
         }
     }
 
@@ -131,7 +131,7 @@ public class Printer {
 
     public void print(String message) {
         StringBuilder sb = new StringBuilder();
-        sb.append(this.color.getES());
+        sb.append(this.color.getEs());
         sb.append(this.background.getES());
         sb.append(this.thickness.getES());
         sb.append(this.italic.getES());

@@ -1,4 +1,4 @@
-package ui.UIHandlers;
+package ui.uihandlers;
 
 import serverfacade.ServerFacade;
 import ui.Printer;
@@ -13,9 +13,9 @@ public class HelpHandler extends Handler {
         p.setColor(Printer.Color.YELLOW);
         p.println("Commands:");
         if (loggedIn) {
-            help_postLogin();
+            helpPostLogin();
         } else {
-            help_preLogin();
+            helpPreLogin();
         }
         p.setColor(Printer.Color.YELLOW);
         p.setIndent(4);
@@ -30,7 +30,7 @@ public class HelpHandler extends Handler {
         p.println(" - Display this help message");
     }
 
-    public void help_postLogin() {
+    public void helpPostLogin() {
         p.setColor(Printer.Color.YELLOW);
         p.setIndent(4);
         p.print("create <name>");
@@ -62,7 +62,7 @@ public class HelpHandler extends Handler {
         p.println(" - Log out of your account");
     }
 
-    public void help_preLogin() {
+    public void helpPreLogin() {
         p.setColor(Printer.Color.YELLOW);
         p.setIndent(4);
         p.print("login <username> <password>");
