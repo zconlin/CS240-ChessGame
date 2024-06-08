@@ -5,18 +5,27 @@ import resultclasses.CreateGameResult;
 import resultclasses.LoginResult;
 import resultclasses.RegisterResult;
 import org.junit.jupiter.api.*;
+import server.Server;
 import serverfacade.ServerFacade;
 
 import java.rmi.ServerException;
 
 public class ServerFacadeTests {
 
-    private final ServerFacade serverFacade = new ServerFacade("http://localhost:0");
+    private final ServerFacade serverFacade = new ServerFacade("http://localhost:8080");
+    private static Server server;
+
+    //    @BeforeAll
+    public static void init() {
+        server = new Server();
+        var port = server.run(0);
+        System.out.println("Started test HTTP server on " + port);
+    }
 
     @BeforeAll
     public static void setUp() {
         try {
-            new ServerFacade("http://localhost:0").clear();
+            new ServerFacade("http://localhost:8080").clear();
         } catch (ResponseException e) {
             Assertions.fail();
         }
@@ -25,7 +34,7 @@ public class ServerFacadeTests {
     @BeforeEach
     public void setUp2() {
         try {
-            var s = new ServerFacade("http://localhost:0");
+            var s = new ServerFacade("http://localhost:8080");
             s.clear();
             s.register("test", "test", "test");
         } catch (ResponseException e) {
