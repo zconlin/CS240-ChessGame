@@ -1,0 +1,65 @@
+0000000000000000000000000000000000000000 8fe50834f3dd4144772e63c13b6161d6211d3f4c zconlin <zac.conlin@gmail.com> 1716933825 -0600	clone: from https://github.com/zconlin/CS240-ChessGame.git
+8fe50834f3dd4144772e63c13b6161d6211d3f4c 5720b47cb827c3ed7ae87046e00f90c6952788b1 zconlin <zac.conlin@gmail.com> 1716938462 -0600	commit: Made empty SQL DAO files with the same functions as the memory DAOs
+5720b47cb827c3ed7ae87046e00f90c6952788b1 21e002c85533fe12a1c3f0358f004d37d8528a02 zconlin <zac.conlin@gmail.com> 1717010015 -0600	commit: Adjusted Server.java and Services to use SQL DAOs rather than in-memory DAOs
+21e002c85533fe12a1c3f0358f004d37d8528a02 18a5ed4ba517a81495660b7567655734fd0b641b zconlin <zac.conlin@gmail.com> 1717010110 -0600	commit: Added missing getters to User model
+18a5ed4ba517a81495660b7567655734fd0b641b e5f99fb1ee350fe1691825ee9bb24623f4e01b61 zconlin <zac.conlin@gmail.com> 1717010271 -0600	commit: Changes to keep classes consistent with the others
+e5f99fb1ee350fe1691825ee9bb24623f4e01b61 062dc57c70a3df373730ea220d8d5757216151bc zconlin <zac.conlin@gmail.com> 1717010320 -0600	commit: Added close and clear functionality to DatabaseManager
+062dc57c70a3df373730ea220d8d5757216151bc 07f9e7420e40230f608f7b52548727650946b0a4 zconlin <zac.conlin@gmail.com> 1717010505 -0600	commit: Added Type Adaptors for the Chess classes
+07f9e7420e40230f608f7b52548727650946b0a4 1cfffc55058c43fe00a73219c6805a7b71550b80 zconlin <zac.conlin@gmail.com> 1717010589 -0600	commit: Changed to SQL DAO
+1cfffc55058c43fe00a73219c6805a7b71550b80 d3c5450f7a6375a83ac1cfe17bbd1852eff40303 zconlin <zac.conlin@gmail.com> 1717010702 -0600	commit: Added spectator functions
+d3c5450f7a6375a83ac1cfe17bbd1852eff40303 b0586c76ed49f42f30070fc74730971068e02363 zconlin <zac.conlin@gmail.com> 1717011300 -0600	commit: Implemented AuthSQL sql functionality
+b0586c76ed49f42f30070fc74730971068e02363 f2d140b4c3dbcc7b59bbe5f1221fc67e928bee21 zconlin <zac.conlin@gmail.com> 1717011314 -0600	commit: Implemented GameSQL sql functionality
+f2d140b4c3dbcc7b59bbe5f1221fc67e928bee21 f7be5a77faeda6a751c2fc98fc3eeb4cdcbd5bed zconlin <zac.conlin@gmail.com> 1717011324 -0600	commit: Implemented UserSQL sql functionality
+f7be5a77faeda6a751c2fc98fc3eeb4cdcbd5bed e431c09e42419549bdf509d535dc98f0639bf1f6 zconlin <zac.conlin@gmail.com> 1717113054 -0600	commit: Added some of the SQL commands I used for the DB just in case I need to recreate
+e431c09e42419549bdf509d535dc98f0639bf1f6 91a6997d0ae81da66dc4dd37ac891fb222770b84 zconlin <zac.conlin@gmail.com> 1717113151 -0600	commit: Correctly returning gameID
+91a6997d0ae81da66dc4dd37ac891fb222770b84 5523a61ecd74240c125cd7c2a35eacde9f0ca2bc zconlin <zac.conlin@gmail.com> 1717113328 -0600	commit: Added note about not being used anymore
+5523a61ecd74240c125cd7c2a35eacde9f0ca2bc a60bbc34be74fa48ab7024a1170c904ba26ff85c zconlin <zac.conlin@gmail.com> 1717121260 -0600	commit: Removed unused functions
+a60bbc34be74fa48ab7024a1170c904ba26ff85c ca5016dedaf97db7774e2f0ccd8cbcd26c49d3e0 zconlin <zac.conlin@gmail.com> 1717121275 -0600	commit: Fixed references to the wrong database
+ca5016dedaf97db7774e2f0ccd8cbcd26c49d3e0 e0c2c88c598d208794c9f65b5cafb59935c56cca zconlin <zac.conlin@gmail.com> 1717121325 -0600	commit: Encrypting passwords using BCrypt
+e0c2c88c598d208794c9f65b5cafb59935c56cca 88478e0025251c8aa413464fba97a290f3ee5766 zconlin <zac.conlin@gmail.com> 1717121400 -0600	commit: Changed SQL to reset gameID auto incrementer on clear
+88478e0025251c8aa413464fba97a290f3ee5766 0329106cd88d3a36abbdc743a42de36be6ac4399 zconlin <zac.conlin@gmail.com> 1717174656 -0600	commit: Converted to use SQL DAOs
+0329106cd88d3a36abbdc743a42de36be6ac4399 88478e0025251c8aa413464fba97a290f3ee5766 zconlin <zac.conlin@gmail.com> 1717174881 -0600	reset: moving to head^
+88478e0025251c8aa413464fba97a290f3ee5766 69c52ba0e741718069454cf015b1539686753fc4 zconlin <zac.conlin@gmail.com> 1717174954 -0600	commit: Created JUnit tests for SQL DAOs
+69c52ba0e741718069454cf015b1539686753fc4 c87dbb5a28f64e5aef811ba11ea9e1de74708227 zconlin <zac.conlin@gmail.com> 1717174983 -0600	commit: Passing all tests
+c87dbb5a28f64e5aef811ba11ea9e1de74708227 c94534e8ad1244dcfcec99363569e3ca3d0ad403 zconlin <zac.conlin@gmail.com> 1717183571 -0600	commit: Initializing Database within the code
+c94534e8ad1244dcfcec99363569e3ca3d0ad403 35b03b2243038494d15cfde476efcaec526a8545 zconlin <zac.conlin@gmail.com> 1717184680 -0600	commit: Reverted to previous stable build because files needed to be changed that weren't allowed to be
+35b03b2243038494d15cfde476efcaec526a8545 bc943f1b4812245ca89c873a06538626d2804d40 zconlin <zac.conlin@gmail.com> 1717185674 -0600	commit: Restored given tests
+bc943f1b4812245ca89c873a06538626d2804d40 5cd5b3f15a0abf449e0fc2233fb2f81434621214 zconlin <zac.conlin@gmail.com> 1717188882 -0600	commit: Reimplemented database initialization
+5cd5b3f15a0abf449e0fc2233fb2f81434621214 af6d237024ccfb729d3b7e31d039a7b684884c21 zconlin <zac.conlin@gmail.com> 1717189245 -0600	commit: Creating database from static block
+af6d237024ccfb729d3b7e31d039a7b684884c21 7eaac2a0cce99bf95a0982fb21d4bd3cf5e50943 zconlin <zac.conlin@gmail.com> 1717189580 -0600	commit: Found a missed copy/paste error
+7eaac2a0cce99bf95a0982fb21d4bd3cf5e50943 1c2646aa18e0901fdd5f80323a55d3dc35cbd577 zconlin <zac.conlin@gmail.com> 1717258856 -0600	commit: Removed calls to database name in SQL statements
+1c2646aa18e0901fdd5f80323a55d3dc35cbd577 d410c85344a00f16256d6f30012a505493e2df58 zconlin <zac.conlin@gmail.com> 1717259062 -0600	commit: Removed calls to database name in SQL statements
+d410c85344a00f16256d6f30012a505493e2df58 64110b520ea089454e25bdd2159449268bfc243a zconlin <zac.conlin@gmail.com> 1717259244 -0600	commit: Removed calls to database name in SQL statements
+64110b520ea089454e25bdd2159449268bfc243a 97f1277e0ab857437b8131d6bfd547613f503b8a zconlin <zac.conlin@gmail.com> 1717259750 -0600	commit: Added printStackTrace for debugging with autograder
+97f1277e0ab857437b8131d6bfd547613f503b8a ecb8c2a675a7c2836eb60308d947cd4775bfe3e2 zconlin <zac.conlin@gmail.com> 1717259977 -0600	commit: Reimplemented createStatements for DB
+ecb8c2a675a7c2836eb60308d947cd4775bfe3e2 4251daf79707efb24c8018c0f6a61700ddad69a1 zconlin <zac.conlin@gmail.com> 1717332120 -0600	commit: Removed unused functions
+4251daf79707efb24c8018c0f6a61700ddad69a1 240d1cc256493aae2722c4da6c95897c40515ac8 zconlin <zac.conlin@gmail.com> 1717332161 -0600	commit: Split DAOTests into individual DAO test classes
+240d1cc256493aae2722c4da6c95897c40515ac8 85a61c816c1198061d9e12e9a12de1972d693a62 zconlin <zac.conlin@gmail.com> 1717344213 -0600	commit: Created helper function for duplicate code
+85a61c816c1198061d9e12e9a12de1972d693a62 4ea5d23a311f3c4f45fcd33c3775e5402d8199bf zconlin <zac.conlin@gmail.com> 1717344488 -0600	commit: Renamed helper function to match code quality checks
+4ea5d23a311f3c4f45fcd33c3775e5402d8199bf 76e9f6ed066ca520e2cd8ad88392ec32e0436da6 zconlin <zac.conlin@gmail.com> 1717345432 -0600	commit: Added Phase 5 starter code
+76e9f6ed066ca520e2cd8ad88392ec32e0436da6 e6496468736f81e254658ffef94c866365024a87 zconlin <zac.conlin@gmail.com> 1717452852 -0600	commit: Code Quality fix - Added @Override
+e6496468736f81e254658ffef94c866365024a87 e6c1d56338d7d8e57679b817a9549a4fb480fa05 zconlin <zac.conlin@gmail.com> 1717453161 -0600	commit: Code Quality fix - Added @Override
+e6c1d56338d7d8e57679b817a9549a4fb480fa05 443142f26faac78d2ddc55f05a376fe870e89d62 zconlin <zac.conlin@gmail.com> 1717461641 -0600	commit (amend): Code quality fix - added Override
+443142f26faac78d2ddc55f05a376fe870e89d62 d74331289a94e6db442b2fde85f70acf807aa226 zconlin <zac.conlin@gmail.com> 1717461850 -0600	pull: Merge made by the 'ort' strategy.
+d74331289a94e6db442b2fde85f70acf807aa226 0a2af779f740c94108f8eb8636d3f7b5b6e28333 zconlin <zac.conlin@gmail.com> 1717461982 -0600	commit: QOL changes
+0a2af779f740c94108f8eb8636d3f7b5b6e28333 443142f26faac78d2ddc55f05a376fe870e89d62 zconlin <zac.conlin@gmail.com> 1717462077 -0600	reset: moving to HEAD~2
+443142f26faac78d2ddc55f05a376fe870e89d62 e6496468736f81e254658ffef94c866365024a87 zconlin <zac.conlin@gmail.com> 1717462094 -0600	reset: moving to HEAD~1
+e6496468736f81e254658ffef94c866365024a87 814d25fa56bc7f27443a351f856c0b95a0578cd1 zconlin <zac.conlin@gmail.com> 1717462199 -0600	commit: Added overrides
+814d25fa56bc7f27443a351f856c0b95a0578cd1 e1668d6e7c176711f749577ca761270b2fe90beb zconlin <zac.conlin@gmail.com> 1717462373 -0600	commit: Moved Request and Result classes to shared
+e1668d6e7c176711f749577ca761270b2fe90beb 6723af3108fd9278ab15ac2308acb6726ec11a22 zconlin <zac.conlin@gmail.com> 1717814151 -0400	commit: Minor changes to handlers
+6723af3108fd9278ab15ac2308acb6726ec11a22 189396c7ebc9b35433358c76b6261bb627cafd2a zconlin <zac.conlin@gmail.com> 1717814205 -0400	commit: Added client Handler class
+189396c7ebc9b35433358c76b6261bb627cafd2a 649534f2b4e1d3885b31b4d681a585adc635b827 zconlin <zac.conlin@gmail.com> 1717814291 -0400	commit: Added client Handlers for each action
+649534f2b4e1d3885b31b4d681a585adc635b827 c1842a43f0b3d18ab0a3656fcefbaf7b89a94166 zconlin <zac.conlin@gmail.com> 1717814315 -0400	commit: Created ModelDeserializer
+c1842a43f0b3d18ab0a3656fcefbaf7b89a94166 1f4a3a655d0013870e8b0c9794617480b457b5d4 zconlin <zac.conlin@gmail.com> 1717814349 -0400	commit: Committing ServerFacade
+1f4a3a655d0013870e8b0c9794617480b457b5d4 78b749d29d8a4d9514f7c859cf32f82525bd3636 zconlin <zac.conlin@gmail.com> 1717814372 -0400	commit: Removed old commented-out code
+78b749d29d8a4d9514f7c859cf32f82525bd3636 8fc9c0574b6fe8054229741b6782a8a2e99372a6 zconlin <zac.conlin@gmail.com> 1717814423 -0400	commit: Moved into shared
+8fc9c0574b6fe8054229741b6782a8a2e99372a6 9e04c233245da634c93264c6462469507f528328 zconlin <zac.conlin@gmail.com> 1717814473 -0400	commit: Adding Printer classes
+9e04c233245da634c93264c6462469507f528328 dfd8a268d7fc7c5a2f778fcc7bc76306e36b8080 zconlin <zac.conlin@gmail.com> 1717814500 -0400	commit: Passing all but one ServerFacadeTest
+dfd8a268d7fc7c5a2f778fcc7bc76306e36b8080 b42f42186f2a825ef7fccfdf5bb14ab08817203e zconlin <zac.conlin@gmail.com> 1717815175 -0400	commit: Added "show" as an optional command
+b42f42186f2a825ef7fccfdf5bb14ab08817203e 606851c59ac7972d15fab7587d3abb14fc509d35 zconlin <zac.conlin@gmail.com> 1717815207 -0400	commit: Focused List's output to more relevant information
+606851c59ac7972d15fab7587d3abb14fc509d35 d123364c725d840dcfd599435e64d5732b768537 zconlin <zac.conlin@gmail.com> 1717815540 -0400	commit: Autograder adjustment to allow Spark to pick a port
+d123364c725d840dcfd599435e64d5732b768537 dca8ecdaab857c7fb926f85d349390e2143e184a zconlin <zac.conlin@gmail.com> 1717861223 -0400	commit: Stable running tests backup
+dca8ecdaab857c7fb926f85d349390e2143e184a 73929e88e0053135c3ccdfaf3439cba07a026003 zconlin <zac.conlin@gmail.com> 1717864294 -0400	commit: Fixed logic with null playerColor entry skipping the client side auto-picker logic
+73929e88e0053135c3ccdfaf3439cba07a026003 354e484c8d0a08f2a7892fd06737244f0bd22880 zconlin <zac.conlin@gmail.com> 1717865025 -0400	commit: Fixed a bunch of code quality checks
+354e484c8d0a08f2a7892fd06737244f0bd22880 1b33d44e796d97f3913b9425d6fd1774901823e5 zconlin <zac.conlin@gmail.com> 1717865496 -0400	commit: More code quality fixes
+1b33d44e796d97f3913b9425d6fd1774901823e5 d46d30b4314019a02e3db7fc42cd98af89e10047 zconlin <zac.conlin@gmail.com> 1718058133 -0400	commit: Added Phase 6 starter code

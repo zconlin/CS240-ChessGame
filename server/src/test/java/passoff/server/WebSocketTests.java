@@ -359,7 +359,7 @@ public class WebSocketTests {
     }
 
     private void resign(WebsocketUser sender, int gameID, boolean expectSuccess,
-                               Set<WebsocketUser> inGame, Set<WebsocketUser> otherClients) {
+                        Set<WebsocketUser> inGame, Set<WebsocketUser> otherClients) {
         TestCommand resignCommand = new TestCommand(UserGameCommand.CommandType.RESIGN, sender.authToken(), gameID);
         var numExpectedMessages = expectedMessages(sender, 1, inGame, (expectSuccess ? 1 : 0), otherClients);
         var actualMessages = environment.exchange(sender.username(), resignCommand, numExpectedMessages, waitTime);
@@ -466,7 +466,7 @@ public class WebSocketTests {
     }
 
     private void assertNoMessages(String username, List<TestMessage> messages, String description) {
-            Assertions.assertTrue(messages.isEmpty(), "%s got a message after %s. messages: %s".formatted(username, description, messages));
+        Assertions.assertTrue(messages.isEmpty(), "%s got a message after %s. messages: %s".formatted(username, description, messages));
     }
 
     private void assertNoMessagesInvalid(String username, List<TestMessage> messages) {
