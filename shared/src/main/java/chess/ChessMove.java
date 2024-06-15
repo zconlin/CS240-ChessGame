@@ -1,5 +1,8 @@
 package chess;
 
+import com.google.gson.*;
+
+import java.lang.reflect.Type;
 import java.util.Objects;
 
 /**
@@ -42,6 +45,15 @@ public class ChessMove {
      */
     public ChessPiece.PieceType getPromotionPiece() {
         return promotionPiece;
+    }
+
+    public static class ChessMoveTA implements JsonDeserializer<ChessMove> {
+
+        @Override
+        public ChessMove deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+            var gson = new GsonBuilder().registerTypeAdapter(ChessPosition.class, new ChessPosition.ChessPositionTA()).create();
+            return gson.fromJson(jsonElement, ChessMove.class);
+        }
     }
 
     @Override

@@ -1,5 +1,8 @@
 package chess;
 
+import com.google.gson.*;
+
+import java.lang.reflect.Type;
 import java.util.Objects;
 
 /**
@@ -32,6 +35,14 @@ public class ChessPosition {
      */
     public int getColumn() {
         return col;
+    }
+
+    static class ChessPositionTA implements JsonDeserializer<ChessPosition> {
+
+        @Override
+        public ChessPosition deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+            return new Gson().fromJson(jsonElement, ChessPosition.class);
+        }
     }
 
     @Override
