@@ -34,6 +34,6 @@ public class JoinSpectatorCommandHandler extends CommandHandler {
 
         var message = String.format("Player %s is now observing", joinSpectatorCommand.getUsername());
         var notification = new websocketmessages.servermessages.NotificationMessage(message);
-        sessionsManager.broadcast(joinSpectatorCommand.getGameID(), notification, joinSpectatorCommand.getUsername());
+//        sessionsManager.broadcast(joinSpectatorCommand.getGameID(), notification, joinSpectatorCommand.getUsername()); TODO
     }
 }

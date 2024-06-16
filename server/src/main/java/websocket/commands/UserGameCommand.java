@@ -14,6 +14,10 @@ public class UserGameCommand {
         this.authToken = authToken;
     }
 
+    public Object getUsername() {
+        return "TEMP USERNAME in UserGameCommand"; //TODO
+    }
+
     public enum CommandType {
         CONNECT,
         MAKE_MOVE,

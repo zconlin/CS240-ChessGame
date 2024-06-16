@@ -70,7 +70,7 @@ public class MoveCommandHandler extends CommandHandler {
         //Broadcast move
         var message = String.format("Player %s moved %s", username, move);
         var notification = new websocketmessages.servermessages.NotificationMessage(message);
-        sessionsManager.broadcast(gameID, notification, username);
+//        sessionsManager.broadcast(gameID, notification, username); TODO
 
         //Switch username
         username = playerTeam == ChessGame.TeamColor.WHITE ? game.getWhiteUsername() : game.getBlackUsername();
@@ -79,14 +79,14 @@ public class MoveCommandHandler extends CommandHandler {
         if (game.getGame().isInCheck(playerTeam)) {
             var alert = String.format("Player %s is in check", username);
             var notif = new websocketmessages.servermessages.NotificationMessage(alert);
-            sessionsManager.broadcast(gameID, notif, "");
+//            sessionsManager.broadcast(gameID, notif, ""); TODO
         }
 
         //Check if player is in Checkmate
         if (game.getGame().isInCheckmate(playerTeam)) {
             var alert = String.format("Player %s is in checkmate", username);
             var notif = new websocketmessages.servermessages.NotificationMessage(alert);
-            sessionsManager.broadcast(gameID, notif, "");
+//            sessionsManager.broadcast(gameID, notif, ""); TODO
         }
 
 

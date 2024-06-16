@@ -62,7 +62,7 @@ public class WSServer {
             case JOIN_PLAYER -> {
                 command = new Gson().fromJson(message, websocketmessages.usercommands.UserGameCommand.class);
                 command.setAuthToken(trueAuthToken);
-                joinPlayerCommandHandler.handle(session, command);
+//                joinPlayerCommandHandler.handle(session, command); TODO
             }
             case JOIN_SPECTATOR -> {
                 command = new Gson().fromJson(message, websocketmessages.usercommands.UserGameCommand.class);

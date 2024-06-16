@@ -34,6 +34,6 @@ public class LeaveCommandHandler extends CommandHandler {
 
         var message = String.format("Player %s left the game", username);
         var notification = new websocketmessages.servermessages.NotificationMessage(message);
-        sessionsManager.broadcast(gameID, notification, username);
+//        sessionsManager.broadcast(gameID, notification, username); TODO
     }
 }

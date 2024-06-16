@@ -55,28 +55,28 @@ public class WSFacade extends Endpoint {
     }
 
     public void sendJoinPlayer(AuthToken authToken, Integer gameID, ChessGame.TeamColor playerColor) throws ResponseException {
-        var command = new websocket.commands.JoinPlayerCommand(authToken, gameID, playerColor);
-        send(command);
+//        var command = new websocket.commands.JoinPlayerCommand(authToken, gameID, playerColor);
+//        send(command); TODO
     }
 
     public void sendJoinSpectator(AuthToken authToken, Integer gameID) throws ResponseException {
-        var command = new JoinSpectatorCommand(authToken, gameID);
-        send(command);
+//        var command = new JoinSpectatorCommand(authToken, gameID);
+//        send(command); TODO
     }
 
     public void sendMove(AuthToken authToken, Integer gameID, ChessMove move) throws ResponseException {
-        var command = new websocketmessages.usercommands.MoveCommand(authToken, gameID, move);
-        send(command);
+//        var command = new websocketmessages.usercommands.MoveCommand(authToken, gameID, move);
+//        send(command); TODO
     }
 
     public void sendLeaveGame(AuthToken authToken, Integer gameID) throws ResponseException {
-        var command = new websocketmessages.usercommands.LeaveCommand(authToken, gameID);
-        send(command);
+//        var command = new websocketmessages.usercommands.LeaveCommand(authToken, gameID);
+//        send(command); TODO
     }
 
     public void sendResign(AuthToken authToken, Integer gameID) throws ResponseException {
-        var command = new websocketmessages.usercommands.ResignCommand(authToken, gameID);
-        send(command);
+//        var command = new websocketmessages.usercommands.ResignCommand(authToken, gameID);
+//        send(command); TODO
     }
 
     @Override

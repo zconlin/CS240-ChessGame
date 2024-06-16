@@ -37,6 +37,6 @@ public class ResignCommandHandler extends CommandHandler {
 
         var message = String.format("Player %s forfeits", username);
         var notification = new websocketmessages.servermessages.NotificationMessage(message);
-        sessionsManager.broadcast(gameID, notification, "");
+//        sessionsManager.broadcast(gameID, notification, ""); TODO
     }
 }
